@@ -3,6 +3,7 @@ import Confirm from './components/confirm'
 import Toast from './components/toast'
 import { functions } from 'nerio-js-utils'
 
+require('./assets/js/request')
 let {Storage} = functions
 Vue.use(VuetifyTable)
 Vue.use(Toast)

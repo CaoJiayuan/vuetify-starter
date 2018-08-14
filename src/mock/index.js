@@ -1,5 +1,5 @@
 import {functions} from 'nerio-js-utils'
-let {parseUrl} = functions
+let {parseUrl, fastRandom} = functions
 
 const menus = [
   {
@@ -12,12 +12,20 @@ const menus = [
 
 const Mock = require('mockjs')
 
-Mock.mock('/user', {
+Mock.mock(url('/users'), options => {
+  return paginator({
+    name : () => Mock.Random.cname(),
+    avatar: () => imageUrl(),
+    created_at: () => Mock.Random.datetime()
+  }, options)
+})
+
+Mock.mock(url('/user'), {
   name: Mock.Random.cname(),
   avatar: 'https://picsum.photos/300/300?random'
 })
 
-Mock.mock('/navigation', function () {
+Mock.mock(url('/navigation'), function () {
   return menus;
 })
 
@@ -37,8 +45,8 @@ function paginator(templateItem, options, total = 100) {
 
   Object.assign(template, {
     total        : total,
-    per_page     : perPage,
-    current_page : page,
+    per_page     : parseInt(perPage),
+    current_page : parseInt(page),
     last_page    : Math.round(total / perPage),
     next_page_url: null,
     prev_page_url: null,
@@ -49,6 +57,13 @@ function paginator(templateItem, options, total = 100) {
   return Mock.mock(template)
 }
 
+function imageUrl (width = 640, height = 640, seed) {
+
+  seed = seed || fastRandom()
+
+  return `https://picsum.photos/${width}/${height}?random=${seed}`
+}
+
 function url(u) {
-  return new RegExp(`${process.env.API_BASE_URL}${u}`)
+  return new RegExp(`^${process.env.API_BASE_URL}${u}`)
 }
