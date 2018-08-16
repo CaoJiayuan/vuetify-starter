@@ -6,7 +6,7 @@ const routes = [
     name: 'users',
     component: Users,
     meta: {
-      title : 'Users',
+      title : 'Users (table example)',
       icon: 'account_box'
     }
   },

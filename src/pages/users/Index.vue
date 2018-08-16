@@ -4,7 +4,7 @@
      <v-card-title>
        Users
      </v-card-title>
-     <vuetify-table api-url="/users" :headers="headers"></vuetify-table>
+     <vuetify-table selectable api-url="/users" :headers="headers" :actions="actions"></vuetify-table>
    </v-card>
  </v-container>
 </template>
@@ -31,11 +31,27 @@
             value: 'created_at',
             text : 'Created at'
           },
+        ],
+        actions: [
+          {
+            icon: 'delete',
+            color: 'error',
+            click: 'deleteItem',
+          }
         ]
       }
     },
     components: {},
-    methods: {},
+    methods: {
+      deleteItem(item){
+        this.$confirm({
+          title: "Is that ok?"
+        }).then(dismiss => {
+          alert(JSON.stringify(item))
+          dismiss()
+        })
+      }
+    },
     mounted () {
 
     },

@@ -1,0 +1,41 @@
+<template>
+      <v-toolbar dense app>
+        <v-toolbar-side-icon @click="mini = !mini"></v-toolbar-side-icon>
+        <v-spacer></v-spacer>
+        <v-btn ripple @click="logout" flat>退出</v-btn>
+      </v-toolbar>
+</template>
+<script>
+const mapGetters = Vuex.mapGetters;
+
+export default {
+    computed  : {
+      mini: {
+        get() {
+          return this.nav.mini;
+        },
+        set(now) {
+          this.$store.commit('miniNavigation', {mini: now});
+        }
+      },
+      ...mapGetters({
+        user : 'user',
+        nav  : 'nav'
+      })
+    },
+    components: {},
+    methods   : {
+      logout() {
+        this.$confirm({
+          title : '确认退出?'
+        }).then(dismiss => {
+          UserApi.logout().then(res => {
+            dismiss();
+            this.$router.push(LOGIN_PATH);
+          });
+        })
+
+      }
+    }
+}
+</script>

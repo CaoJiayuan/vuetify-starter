@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <navigation></navigation>
-    <v-toolbar dense app></v-toolbar>
+    <top-bar></top-bar>
     <v-content app>
       <transition name="slide" mode="out-in">
         <router-view></router-view>
@@ -14,9 +14,11 @@
 import {tween, spring} from 'popmotion'
 import {APP_NAME} from './constant'
 import Navigation from './components/layout/Navigation.vue'
+import TopBar from './components/layout/TopBar.vue'
+
 
 export default {
-  components: {Navigation},
+  components: {Navigation,TopBar},
   name: 'App',
   methods:{
     tap(){
