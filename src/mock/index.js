@@ -1,33 +1,21 @@
 import {functions} from 'nerio-js-utils'
 let {parseUrl, fastRandom} = functions
 
-const menus = [
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    display_name: '首页',
-    icon: 'home',
-  },
-];
 
 const Mock = require('mockjs')
 
 Mock.mock(url('/users'), options => {
   return paginator({
-    name : () => Mock.Random.cname(),
+    name : () => Mock.Random.name(),
     avatar: () => imageUrl(),
-    created_at: () => Mock.Random.datetime(),
-    email: () => Mock.Random.email()
+    created_at: () => Mock.Random.datetime()
   }, options)
 })
 
 Mock.mock(url('/user'), {
   name: Mock.Random.cname(),
-  avatar: 'https://picsum.photos/300/300?random'
-})
-
-Mock.mock(url('/navigation'), function () {
-  return menus;
+  avatar: 'https://picsum.photos/300/300?random',
+  email: () => Mock.Random.email()
 })
 
 function paginator(templateItem, options, total = 100) {
