@@ -1,10 +1,13 @@
 <template>
   <v-app id="app">
     <navigation></navigation>
+
     <top-bar></top-bar>
-    <v-content app>
-      <transition name="slide" mode="out-in">
-        <router-view></router-view>
+
+    <v-content>
+      <transition name="fade" mode="out-in">
+        <router-view>
+        </router-view>
       </transition>
     </v-content>
   </v-app>

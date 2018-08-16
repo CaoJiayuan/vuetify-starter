@@ -1,26 +1,11 @@
 <template>
-  <v-navigation-drawer fixed v-model="open" app>
-    <v-toolbar dense flat >
-      <v-list dense>
-        <v-list-tile>
-          <v-list-tile-avatar>
-            <img :src="user.avatar" alt="avatar">
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title class="title">
-              {{ user.name }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-toolbar>
-    <v-divider></v-divider>
+  <v-navigation-drawer fixed v-model="open" app :clipped="$vuetify.breakpoint.mdAndUp">
     <v-list dense>
       <template v-for="item in items">
         <v-list-group no-action v-if="hasNode(item) && item.granted !== false" :group="item.name">
           <v-list-tile  slot="activator" ripple>
             <v-list-tile-action>
-              <v-icon small>{{ item.icon }}</v-icon>
+              <v-icon middle>{{ item.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{ item.display_name }}</v-list-tile-title>
@@ -32,7 +17,7 @@
               <v-list-tile-title>{{ node.display_name }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-icon small>{{ node.icon }}</v-icon>
+              <v-icon middle>{{ node.icon }}</v-icon>
             </v-list-tile-action>
           </v-list-tile>
         </v-list-group>
@@ -40,7 +25,7 @@
                      ripple :key="item.name"
                      @click="navigate(item)">
           <v-list-tile-action>
-            <v-icon small>{{ item.icon }}</v-icon>
+            <v-icon middle>{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ item.display_name }}</v-list-tile-title>
@@ -53,6 +38,8 @@
 
 <script>
   const mapGetters = Vuex.mapGetters;
+  const mapActions = Vuex.mapActions;
+
   export default {
     name: 'navigation',
     data() {
@@ -81,6 +68,7 @@
     methods   : {
       navigate(item) {
         this.active = item.path;
+        this.switchNav(item);
       },
       hasNode(item) {
         let node = this.getNode(item);
@@ -95,10 +83,13 @@
       },
       getNode(item) {
         return item.nodes ? item.nodes : [];
-      }
+      },
+      ...mapActions({
+        switchNav: 'switchNav'
+      })
     },
     mounted() {
-      this.$store.dispatch('loadNavigation');
+      this.$store.dispatch('loadNavigation').then(items => this.switchNav(items[0]));
       this.$store.dispatch('loadUser');
     },
     created() {

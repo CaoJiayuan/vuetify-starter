@@ -1,7 +1,11 @@
 <template>
-      <v-toolbar dense app>
+      <v-toolbar color="primary" dark fixed :clipped-left="$vuetify.breakpoint.mdAndUp" dense app>
         <v-toolbar-side-icon @click="mini = !mini"></v-toolbar-side-icon>
         <v-spacer></v-spacer>
+        <v-icon>more_vert</v-icon>
+        <v-avatar size="36">
+          <img :src="user.avatar" alt="avatar">
+        </v-avatar>
         <v-btn ripple @click="logout" flat>退出</v-btn>
       </v-toolbar>
 </template>

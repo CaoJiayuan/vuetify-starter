@@ -16,7 +16,8 @@ Mock.mock(url('/users'), options => {
   return paginator({
     name : () => Mock.Random.cname(),
     avatar: () => imageUrl(),
-    created_at: () => Mock.Random.datetime()
+    created_at: () => Mock.Random.datetime(),
+    email: () => Mock.Random.email()
   }, options)
 })
 

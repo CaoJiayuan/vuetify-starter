@@ -2,7 +2,8 @@ import HomeApi from '../../apis/home'
 const state = {
   nav: {
     items: [],
-    mini: false
+    mini: false,
+    current: {}
   }
 }
 const getters = {
@@ -12,9 +13,16 @@ const getters = {
 
 const actions = {
   loadNavigation({commit}){
-    return HomeApi.getNavigation().then(items => commit('changeNavigation', {
-      items
-    }))
+    return HomeApi.getNavigation().then(items => {
+      commit('changeNavigation', {
+        items
+      })
+
+      return items
+    })
+  },
+  switchNav({commit}, current){
+    return commit('changeCurrentNav', current)
   }
 };
 
@@ -24,6 +32,9 @@ const mutations = {
   },
   miniNavigation(state, {mini = true}) {
     state.nav.mini = mini
+  },
+  changeCurrentNav(state, current) {
+    state.nav.current = current
   }
 };
 
