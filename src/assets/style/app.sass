@@ -20,6 +20,16 @@ button
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 
+html,.application--wrap
+  overflow-y: hidden
+
+.content
+  overflow-y: hidden
+  height: 100vh
+  .content--wrap
+    overflow-y: scroll
+    height: 100%
+
 @import "animate"
 @import "keyframes"
 @import "transition"

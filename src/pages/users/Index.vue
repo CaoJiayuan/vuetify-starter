@@ -1,8 +1,7 @@
 <template>
  <v-container>
    <v-card>
-
-     <vuetify-table selectable api-url="/users" :headers="headers" :actions="actions"></vuetify-table>
+     <vuetify-table  selectable api-url="/users" :headers="headers" :actions="actions"></vuetify-table>
    </v-card>
  </v-container>
 </template>

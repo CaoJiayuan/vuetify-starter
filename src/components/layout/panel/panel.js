@@ -4,9 +4,15 @@ export default {
     actions: {
       type: Array,
       default: () => []
-    }
+    },
   },
   render(h){
 
+    return h('')
+  },
+  methods:{
+    renderAction(h) {
+
+    }
   }
 }

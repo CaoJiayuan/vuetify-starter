@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer fixed v-model="open" app :clipped="$vuetify.breakpoint.mdAndUp">
+  <v-navigation-drawer width="256" fixed v-model="open" app :clipped="$vuetify.breakpoint.mdAndUp">
     <v-list dense>
       <template v-for="item in items">
         <v-list-group no-action v-if="hasNode(item) && item.granted !== false" :group="item.name">
@@ -103,5 +103,7 @@
   };
 </script>
 <style lang="sass">
-
+.navigation-drawer
+  .list__tile__action
+    min-width: 32px
 </style>
