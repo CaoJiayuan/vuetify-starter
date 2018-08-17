@@ -13,12 +13,12 @@
           <v-card width="320">
             <v-card-text>
               <v-layout>
-                <v-flex xs6>
+                <v-flex xs4>
                   <v-avatar size="72">
                     <img :src="user.avatar" alt="avatar">
                   </v-avatar>
                 </v-flex>
-                <v-flex xs6>
+                <v-flex xs8>
                   <div>
                     <p>{{user.name}}</p>
                     <p>{{user.email}}</p>

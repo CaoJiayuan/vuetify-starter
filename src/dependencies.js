@@ -1,6 +1,8 @@
 import VuetifyTable from 'nerio-vuetify-table'
 import Confirm from './components/confirm'
 import Toast from './components/toast'
+import Panel from './components/layout/panel'
+
 import { functions } from 'nerio-js-utils'
 
 require('./assets/js/request')
@@ -9,3 +11,5 @@ Vue.use(VuetifyTable)
 Vue.use(Toast)
 Vue.use(Confirm)
 Vue.use(Storage)
+Vue.use(Panel)
+
