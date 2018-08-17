@@ -2,7 +2,7 @@ import {functions} from 'nerio-js-utils'
 let {parseUrl, fastRandom} = functions
 
 
-const Mock = require('mockjs')
+const Mock = window.Mock
 
 Mock.mock(url('/users'), options => {
   return paginator({

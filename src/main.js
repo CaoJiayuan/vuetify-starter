@@ -11,9 +11,9 @@ import {isProduction} from './assets/js/utils'
 require('./dependencies')
 Vue.config.productionTip = false
 
-// if (!isProduction()) {
+if (!isProduction()) {
   require('./mock')
-// }
+}
 
 /* eslint-disable no-new */
 new Vue({
