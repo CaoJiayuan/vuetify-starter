@@ -8,7 +8,7 @@ const Home = {
 }
 
 
-function getNavFromRoutes () {
+export function getNavFromRoutes () {
   let result = []
   routes.forEach(route => {
     route.path !== '*' && route.meta.guest !== true && result.push({

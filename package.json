@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "nerio-js-utils": "^1.0.5",
-    "nerio-vuetify-table": "^1.0.4",
+    "nerio-vuetify-table": "^1.0.5",
     "popmotion": "^8.3.3"
   },
   "devDependencies": {
-    "ajv": "^6.5.2",
+    "ajv": "^6.5.3",
     "autoprefixer": "^7.1.2",
     "axios": "^0.18.0",
     "babel-core": "^6.22.1",
@@ -46,7 +46,7 @@
     "postcss-url": "^7.2.1",
     "rimraf": "^2.6.0",
     "sass-loader": "^7.1.0",
-    "semver": "^5.3.0",
+    "semver": "^5.5.1",
     "shelljs": "^0.7.6",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
@@ -57,7 +57,7 @@
     "vue-router": "^3.0.1",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
-    "vuetify": "^1.1.12",
+    "vuetify": "^1.1.13",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-dev-server": "^2.9.1",

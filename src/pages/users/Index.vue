@@ -1,7 +1,7 @@
 <template>
- <app-panel>
-   <v-card>
-     <vuetify-table  selectable api-url="/users" :headers="headers" :actions="actions"></vuetify-table>
+ <app-panel title="Users" name="用户" :actions="panel.actions" @action="action">
+   <v-card >
+     <vuetify-table v-model="items" selectable api-url="/users" :headers="headers" :actions="actions"></vuetify-table>
    </v-card>
  </app-panel>
 </template>
@@ -35,7 +35,24 @@
             color: 'error',
             click: 'deleteItem',
           }
-        ]
+        ],
+        panel: {
+          actions: [
+            'add',
+            {
+              icon: 'edit',
+              text: '编辑用户',
+              disabled : () => this.items.length !== 1,
+              click: 'edit'
+            },
+          ]
+        },
+        items: []
+      }
+    },
+    computed:{
+      selected(){
+        return this.items.length > 0
       }
     },
     components: {},
@@ -47,6 +64,9 @@
           alert(JSON.stringify(item))
           dismiss()
         })
+      },
+      action(action){
+        console.log(action)
       }
     },
     mounted () {

@@ -103,7 +103,7 @@
   };
 </script>
 <style lang="sass">
-.navigation-drawer
-  .list__tile__action
+.v-navigation-drawer
+  .v-list__tile__action
     min-width: 32px
 </style>

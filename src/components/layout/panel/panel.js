@@ -1,39 +1,122 @@
-require('./panel.sass')
+require('./panel.sass');
+
+import {functions} from 'nerio-js-utils'
+
+const {useAsFunction} = functions
+
+const presetActions = {
+  add    : {
+    icon : 'add_box',
+    click: 'add',
+    temp: '创建%s'
+  },
+  edit    : {
+    icon : 'edit',
+    click: 'edit',
+    temp: '编辑%s'
+  },
+  refresh: {
+    icon : 'refresh',
+    click: 'refresh',
+    temp: '刷新'
+  }
+};
+
 export default {
-  name: 'app-panel',
+  name : 'app-panel',
   props: {
     actions: {
-      type: Array,
+      type   : Array,
       default: () => []
     },
+    title  : {
+      type   : String,
+      default: 'Panel'
+    },
+    name   : {
+      type   : String
+    }
   },
-  render(h){
+
+  data() {
+    return {
+      presetActions
+    };
+  },
+  mounted() {
+    this.name = this.name || this.title;
+  },
+  render(h) {
 
     return h('v-layout', {
       class: 'app-panel',
       attrs: {
-        wrap: true,
+        wrap            : true,
         'justify-center': true
       }
-    }, [this.renderAction(h), this.renderBody(h)])
+    }, [this.renderAction(h), this.renderBody(h)]);
   },
-  methods:{
+  methods: {
     renderAction(h) {
+
+      const title = h('v-subheader', {
+        class: 'panel-title',
+      }, this.title);
+
+      const actions = this.actions.map(action => {
+        if (typeof action === 'string') {
+          action = this.findActionByName(action)
+        }
+
+        let icon;
+        if (action.icon) {
+          icon = h('v-icon', {}, action.icon);
+        }
+        let click = e => {
+          if (action.click) {
+            this.$emit(action.click, e);
+            this.$emit('action', action.click, e)
+          }
+        };
+
+        return h('v-btn', {
+          class: 'panel-action-item',
+          props: {
+            flat : true,
+            color: action.color || 'primary',
+            disabled: useAsFunction(action.disabled)(),
+            small: true
+          },
+          on   : {
+            click: click
+          }
+        }, [icon, action.text]);
+      });
+
       return h('v-flex', {
         class: 'panel-action',
         attrs: {
           xs12: true
         }
-      })
+      }, [title, h('div', {
+        class: 'panel-action-items'
+      }, actions)]);
     },
-    renderBody(h){
+    renderBody(h) {
 
       return h('v-flex', {
         class: 'panel-body',
         attrs: {
           xs12: true
         }
-      }, [this.$slots.default])
+      }, [this.$slots.default]);
+    },
+    findActionByName(name) {
+      let found
+      if (found = this.presetActions[name]) {
+        found.text = sprintf(found.temp, this.name)
+        return found
+      }
     }
   }
-}
+};
