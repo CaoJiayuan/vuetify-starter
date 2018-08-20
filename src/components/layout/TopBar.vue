@@ -36,8 +36,9 @@
       </v-card>
     </v-menu>
     <v-dialog v-model="search" width="512" content-class="search-bar" transition="slide-y-transition">
-      <v-autocomplete :filter="filterNav" @input="jumpTo" solo :items="actions" label="Search something"
-                      hideDetails>
+      <v-autocomplete v-model="action" :filter="filterNav" @input="jumpTo" solo :items="actions"
+          label="Goto"
+          hideDetails>
         <template
           slot="selection"
           slot-scope="data"
@@ -71,7 +72,8 @@
       return {
         menu   : false,
         search : false,
-        actions: []
+        actions: [],
+        action: {}
       };
     },
     computed: {
@@ -111,6 +113,7 @@
         console.log(nav)
         this.$router.push(nav.path)
         this.search = false
+        this.action = {}
       },
       filterNav(item, text){
         return item.display_name.indexOf(text) > -1 || item.path.indexOf(text) > -1

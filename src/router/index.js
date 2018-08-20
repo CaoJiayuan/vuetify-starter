@@ -1,8 +1,19 @@
 import Users from '../pages/users/Index.vue'
+import Dashboard from '../pages/dashboard/Index.vue'
+
 
 const routes = [
   {
     path: '/',
+    name: 'dashboard',
+    component: Dashboard,
+    meta: {
+      title : 'Dashboard',
+      icon: 'home'
+    }
+  },
+  {
+    path: '/users',
     name: 'users',
     component: Users,
     meta: {
