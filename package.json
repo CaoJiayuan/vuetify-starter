@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "nerio-js-utils": "^1.0.5",
-    "nerio-vuetify-table": "^1.0.5",
-    "popmotion": "^8.3.3"
+    "nerio-vuetify-table": "^1.0.6",
+    "popmotion": "^8.3.6"
   },
   "devDependencies": {
     "ajv": "^6.5.3",

@@ -35,7 +35,8 @@ export default {
     },
     name   : {
       type   : String
-    }
+    },
+    loading: Boolean
   },
 
   data() {
@@ -92,6 +93,14 @@ export default {
           }
         }, [icon, action.text]);
       });
+
+      const progress = h('v-flex', {
+        attrs:{
+          xs12: true
+        }
+      }, [h('v-progress-linear', {
+        value: this.loading
+      })])
 
       return h('v-flex', {
         class: 'panel-action',

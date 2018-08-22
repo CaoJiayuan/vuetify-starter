@@ -3,9 +3,36 @@
     <v-toolbar-side-icon @click="mini = !mini"></v-toolbar-side-icon>
     <v-toolbar-title>Vuetify admin</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon @click="search = true">
-      <v-icon>search</v-icon>
-    </v-btn>
+    <v-autocomplete flat solo-inverted height="36px"
+                    dense ref="search" v-model="action"
+                    :filter="filterNav" @input="jumpTo" solo
+                    :items="actions"
+                    label="跳转到"
+                    no-data-text="这里什么也没有-_-!!!"
+                    hideDetails>
+      <template
+        slot="selection"
+        slot-scope="data"
+      >
+        {{ data.item.display_name }}
+      </template>
+
+      <template
+        slot="item"
+        slot-scope="data"
+      >
+        <template>
+          <v-list-tile-avatar>
+            <v-icon>{{data.item.icon}}</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title v-html="data.item.display_name"></v-list-tile-title>
+          </v-list-tile-content>
+        </template>
+      </template>
+    </v-autocomplete>
+    <v-spacer></v-spacer>
+
     <v-btn icon>
       <v-icon>more_vert</v-icon>
     </v-btn>
@@ -35,32 +62,6 @@
         </v-card-actions>
       </v-card>
     </v-menu>
-    <v-dialog v-model="search" width="512" content-class="search-bar" transition="slide-y-transition">
-      <v-autocomplete v-model="action" :filter="filterNav" @input="jumpTo" solo :items="actions"
-          label="Goto"
-          hideDetails>
-        <template
-          slot="selection"
-          slot-scope="data"
-        >
-            {{ data.item.display_name }}
-        </template>
-
-        <template
-          slot="item"
-          slot-scope="data"
-        >
-          <template>
-            <v-list-tile-avatar>
-              <v-icon>{{data.item.icon}}</v-icon>
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title v-html="data.item.display_name"></v-list-tile-title>
-            </v-list-tile-content>
-          </template>
-        </template>
-      </v-autocomplete>
-    </v-dialog>
   </v-toolbar>
 </template>
 <script>
@@ -92,8 +93,11 @@
     },
     mounted() {
       getNavFromRoutes().then(as => this.actions = as)
+      document.addEventListener('keyup', this.searchShortCut)
     },
-
+    beforeDestroy(){
+      document.removeEventListener('keyup', this.searchShortCut)
+    },
     components: {},
     methods   : {
       logout() {
@@ -106,17 +110,27 @@
           });
         });
       },
-      searchInput() {
-        console.log('search');
-      },
       jumpTo(nav) {
-        console.log(nav)
         this.$router.push(nav.path)
         this.search = false
         this.action = {}
       },
       filterNav(item, text){
         return item.display_name.indexOf(text) > -1 || item.path.indexOf(text) > -1
+      },
+      searchShortCut(e){
+        if(e.key === 'G' && e.shiftKey && e.ctrlKey) {
+//          this.$refs.search.blur()
+//          this.$refs.search.focus()
+          this.search = !this.search
+        }
+      }
+    },
+    watch:{
+      search(now) {
+        let search = this.$refs.search
+        now ? search.focus() : search.blur()
+//        console.log(search)
       }
     }
   };
