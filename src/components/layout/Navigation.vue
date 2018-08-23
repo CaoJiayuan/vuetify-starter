@@ -3,7 +3,7 @@
     <v-list dense>
       <template v-for="item in items">
         <v-list-group no-action v-if="hasNode(item) && item.granted !== false" :group="item.name">
-          <v-list-tile :activeClass="$theme.accent" slot="activator" ripple>
+          <v-list-tile :activeClass="accent + '--text'" slot="activator" ripple>
             <v-list-tile-action>
               <v-icon middle>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -11,7 +11,7 @@
               <v-list-tile-title>{{ item.display_name }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile :activeClass="$theme.accent" :to="node.path" ripple v-model="active === item.path" v-for="node in item.nodes"
+          <v-list-tile :activeClass="accent + '--text'" :to="node.path" ripple v-model="active === item.path" v-for="node in item.nodes"
                        :key="node.name" @click="navigate(node)" v-if="node.granted !== false">
             <v-list-tile-content>
               <v-list-tile-title>{{ node.display_name }}</v-list-tile-title>
@@ -21,7 +21,7 @@
             </v-list-tile-action>
           </v-list-tile>
         </v-list-group>
-        <v-list-tile :activeClass="$theme.accent" :to="item.path" v-if="item.granted !== false && !hasNode(item)" v-model="active === item.path"
+        <v-list-tile :activeClass="accent + '--text'" :to="item.path" v-if="item.granted !== false && !hasNode(item)" v-model="active === item.path"
                      ripple :key="item.name"
                      @click="navigate(item)">
           <v-list-tile-action>
@@ -58,6 +58,9 @@
         set(open) {
           this.$store.commit('miniNavigation', {mini: !open});
         }
+      },
+      accent(){
+        return this.$theme.accent
       },
       ...mapGetters({
         nav  : 'nav',

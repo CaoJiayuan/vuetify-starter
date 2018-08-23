@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar :color="$theme.color" :dark="$theme.dark" fixed :clipped-left="$vuetify.breakpoint.mdAndUp" dense app>
+  <v-toolbar class="elevation-2" :color="$theme.color" :dark="$theme.dark" fixed :clipped-left="$vuetify.breakpoint.mdAndUp" dense app>
     <v-toolbar-side-icon @click="mini = !mini"></v-toolbar-side-icon>
     <v-toolbar-title>Vuetify admin</v-toolbar-title>
     <v-spacer></v-spacer>

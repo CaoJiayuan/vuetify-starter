@@ -1,12 +1,15 @@
 <template>
  <app-panel loading title="Users" name="用户" :actions="panel.actions" @action="action">
-   <v-card>
-     <vuetify-table v-model="items" selectable api-url="/users" :headers="headers" :actions="actions"></vuetify-table>
-   </v-card>
+   <card :round="3">
+     <vuetify-table :color="$theme.accent" v-model="items" selectable api-url="/users" :headers="headers" :actions="actions"></vuetify-table>
+   </card>
+
  </app-panel>
 </template>
 
 <script>
+  import Card from '../../components/layout/card'
+
   export default {
     data () {
       return {
@@ -55,7 +58,7 @@
         return this.items.length > 0
       }
     },
-    components: {},
+    components: {Card},
     methods: {
       deleteItem(item){
         this.$confirm({

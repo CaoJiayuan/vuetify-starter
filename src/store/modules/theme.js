@@ -2,28 +2,32 @@ const state = {
   theme: {
     color: 'primary',
     dark: true,
-    accent: 'primary--text'
   },
   themes: [
     {
       color: 'primary',
       dark: true,
-      accent: 'primary--text'
     },
     {
       color: 'green',
       dark: true,
-      accent: 'green--text'
     },
     {
       color: 'pink',
       dark: true,
-      accent: 'pink--text'
     },
     {
       color: 'smoke',
       dark: false,
-      accent: 'primary--text'
+      accent: 'primary'
+    },
+    {
+      color: 'purple',
+      dark: true,
+    },
+    {
+      color: 'cyan',
+      dark: false,
     },
   ]
 };

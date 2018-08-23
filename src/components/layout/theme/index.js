@@ -39,10 +39,11 @@ export default {
           small: true,
           dark: t.dark,
           color: t.color,
+          depressed: t.color !== this.$theme.color
         },
         on: {
           click: e => this.$theme.set(t)
-        }
+        },
       })
       return h('v-flex', {
         attrs: {
@@ -55,7 +56,7 @@ export default {
     const card = h('v-card', {
       slot: 'default',
       props: {
-        width: 212
+        width: 200
       }
     }, [h('v-layout', {
       attrs: {
@@ -69,7 +70,8 @@ export default {
       class: 'app-theme',
       props:{
         offsetY: true,
-        closeOnContentClick : false
+        closeOnContentClick : false,
+        contentClass: 'round-3'
       }
     }, [btn, card])
   },

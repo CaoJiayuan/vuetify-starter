@@ -11,7 +11,7 @@ export default {
           return this.theme.dark
         },
         accent(){
-          return this.theme.accent
+          return this.theme.accent || this.theme.color
         },
       },
       data: {

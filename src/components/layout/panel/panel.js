@@ -86,7 +86,7 @@ export default {
           class: 'panel-action-item',
           props: {
             flat : true,
-            color: action.color || this.$theme.color,
+            color: action.color || this.$theme.accent,
             dark: action.dark || d,
             disabled: disabled,
             small: true

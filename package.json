@@ -12,7 +12,7 @@
   "dependencies": {
     "nerio-io-client": "^1.0.0",
     "nerio-js-utils": "^1.0.5",
-    "nerio-vuetify-table": "^1.0.6",
+    "nerio-vuetify-table": "^1.0.8",
     "popmotion": "^8.3.6"
   },
   "devDependencies": {
@@ -58,10 +58,10 @@
     "vue-router": "^3.0.1",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
-    "vuetify": "^1.1.13",
+    "vuetify": "^1.1.14",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-dev-server": "^2.9.1",
+    "webpack-dev-server": "^2.11.3",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
