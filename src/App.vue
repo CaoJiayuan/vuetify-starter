@@ -17,11 +17,14 @@
 import {tween, spring} from 'popmotion'
 import {APP_NAME} from './constant'
 import Navigation from './components/layout/Navigation.vue'
-import TopBar from './components/layout/TopBar.vue'
+import TopBar from './components/layout/TopBar/Index.vue'
+import AppTheme from './components/layout/theme/index'
 
 
 export default {
-  components: {Navigation,TopBar},
+  components: {
+    AppTheme,
+    Navigation,TopBar},
   name: 'App',
   methods:{
     tap(){
@@ -30,6 +33,7 @@ export default {
   },
   mounted(){
     document.title = `${APP_NAME} - ${this.$route.meta.title}`
+
   },
   watch:{
     $route(route) {

@@ -80,12 +80,15 @@ export default {
           }
         };
 
+        let disabled = useAsFunction(action.disabled)()
+        let d = disabled ? false : this.$theme.dark
         return h('v-btn', {
           class: 'panel-action-item',
           props: {
             flat : true,
-            color: action.color || 'primary',
-            disabled: useAsFunction(action.disabled)(),
+            color: action.color || this.$theme.color,
+            dark: action.dark || d,
+            disabled: disabled,
             small: true
           },
           on   : {

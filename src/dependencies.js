@@ -3,6 +3,8 @@ import Confirm from './components/confirm'
 import Toast from './components/toast'
 import Panel from './components/layout/panel'
 import Container from './components/layout/container'
+import Io from './io'
+import Theme from './theme'
 
 import { functions } from 'nerio-js-utils'
 
@@ -14,4 +16,5 @@ Vue.use(Confirm)
 Vue.use(Storage)
 Vue.use(Panel)
 Vue.use(Container)
-
+Vue.use(Io)
+Vue.use(Theme)

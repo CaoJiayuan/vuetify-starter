@@ -23,6 +23,7 @@ export function renderException(data) {
     }
   }).$mount(body)
 
+  com.active()
 }
 
 export default Exception

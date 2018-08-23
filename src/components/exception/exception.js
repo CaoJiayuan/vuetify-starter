@@ -9,7 +9,7 @@ export default {
         message: 'Error',
         trace: []
       },
-      dialog: true
+      dialog: false
     }
   },
   render (h) {
@@ -26,10 +26,10 @@ export default {
 
     const chip = h('div',{
       class: 'exception-chip'
-    }, this.data.code)
+    }, 'Server error '+ this.data.code)
     const t = h('div', {
-
-    },[this.data.message])
+      class: 'execption-title'
+    },[h('p', {}, this.data.message), h('small', {}, 'file: ' + this.data.file)])
 
     const title = h('v-toolbar', {
       props:{
@@ -44,12 +44,11 @@ export default {
       return h('p', {}, t)
     })
 
-
     const card = h('v-card', {
       class: 'exception-wrap'
     }, [title, h('v-card-text', {
       class: 'exception-body'
-    }, body)])
+    }, body.length > 0 ? body : ['No trace to show, server may not in debug mode'] )])
 
     return h('v-dialog', {
       props: {
@@ -57,7 +56,7 @@ export default {
         value: this.dialog,
         transition: 'slide-y-reverse-transition',
         persistent: true,
-        contentClass: 'exception'
+        contentClass: 'exception round-3'
       },
       ref: 'dialog'
     }, [card])
@@ -68,6 +67,9 @@ export default {
       if (typeof this.destroy === 'function') {
         this.destroy();
       }
+    },
+    active(){
+      this.dialog = true
     }
   }
 }

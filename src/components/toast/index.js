@@ -14,19 +14,16 @@ export function toast(content, type = 'success', timeout = 2000, top = true, rig
   document.body.insertBefore(container, document.body.firstChild)
   let body = document.createElement('div')
   container.appendChild(body)
-  new Component({
-    data: {
-      options: {
-        text: content,
-        color: type,
-        top,
-        right,
-        bottom,
-        left,
-        timeout
-      }
-    }
-  }).$mount(body)
+  let com = new Component().$mount(body)
+  com.setOptions({
+    text: content,
+    color: type,
+    top,
+    right,
+    bottom,
+    left,
+    timeout
+  }).active()
   setTimeout(() => document.body.removeChild(container), timeout + 500)
 }
 

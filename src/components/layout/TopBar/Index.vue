@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="primary" dark fixed :clipped-left="$vuetify.breakpoint.mdAndUp" dense app>
+  <v-toolbar :color="$theme.color" :dark="$theme.dark" fixed :clipped-left="$vuetify.breakpoint.mdAndUp" dense app>
     <v-toolbar-side-icon @click="mini = !mini"></v-toolbar-side-icon>
     <v-toolbar-title>Vuetify admin</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -32,11 +32,10 @@
       </template>
     </v-autocomplete>
     <v-spacer></v-spacer>
-
-    <v-btn icon>
-      <v-icon>more_vert</v-icon>
-    </v-btn>
-    <v-menu v-model="menu" offset-y="72">
+    <app-theme></app-theme>
+    <notification/>
+    <more></more>
+    <v-menu :close-on-content-click="false" v-model="menu" offset-y="72">
       <v-avatar size="36" slot="activator">
         <img :src="user.avatar" alt="avatar">
       </v-avatar>
@@ -58,15 +57,19 @@
         </v-card-text>
         <v-card-actions style="background: #eee">
           <v-spacer></v-spacer>
-          <v-btn ripple @click="logout" flat color="primary">退出</v-btn>
+          <v-btn ripple @click="logout" flat :color="$theme.color">退出</v-btn>
         </v-card-actions>
       </v-card>
     </v-menu>
   </v-toolbar>
 </template>
 <script>
+  import AppTheme from '../theme/index'
+
   const mapGetters = Vuex.mapGetters;
-  import {getNavFromRoutes} from '../../apis/home';
+  import {getNavFromRoutes} from '../../../apis/home';
+  import Notification from './Notification.vue';
+  import More from './More.vue';
 
   export default {
     data() {
@@ -74,7 +77,7 @@
         menu   : false,
         search : false,
         actions: [],
-        action: {}
+        action: {},
       };
     },
     computed: {
@@ -98,7 +101,9 @@
     beforeDestroy(){
       document.removeEventListener('keyup', this.searchShortCut)
     },
-    components: {},
+    components: {
+      AppTheme,
+      Notification, More},
     methods   : {
       logout() {
         this.$confirm({
