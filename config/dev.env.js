@@ -10,4 +10,5 @@ module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
   IO_URL:  JSON.stringify(process.env.IO_URL),
+  API_KEY: JSON.stringify(process.env.API_KEY)
 })

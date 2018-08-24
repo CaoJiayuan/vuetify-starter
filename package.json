@@ -12,7 +12,7 @@
   "dependencies": {
     "nerio-io-client": "^1.0.0",
     "nerio-js-utils": "^1.0.5",
-    "nerio-vuetify-table": "^1.0.8",
+    "nerio-vuetify-table": "^1.0.9",
     "popmotion": "^8.3.6"
   },
   "devDependencies": {

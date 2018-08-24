@@ -1,6 +1,10 @@
 import {toast} from '../../components/toast'
 import {renderException} from '../../components/exception'
 import {isProduction} from './utils'
+import {Signer} from 'nerio-js-utils'
+
+axios.interceptors.request.use(new Signer(process.env.API_KEY, 16).interceptor())
+
 axios.interceptors.request.use(config => {
   if (config.local !== true) {
     config.baseURL = process.env.API_BASE_URL;
