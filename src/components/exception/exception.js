@@ -17,7 +17,7 @@ export default {
       props: {
         flat: true,
         small: true,
-        icon: true
+        fab: true
       },
       on:{
         click: this.unbind

@@ -12,7 +12,7 @@ require('./dependencies')
 Vue.config.productionTip = false
 
 if (!isProduction()) {
-  require('./mock')
+  require('./mock')   // better comment this in production
 }
 
 /* eslint-disable no-new */
