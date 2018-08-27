@@ -2,7 +2,7 @@ require('./panel.sass');
 
 import {functions} from 'nerio-js-utils'
 
-const {useAsFunction} = functions
+const {useAsFunction,getMaxZIndex} = functions
 
 const presetActions = {
   add    : {
@@ -109,6 +109,9 @@ export default {
         class: 'panel-action',
         attrs: {
           xs12: true
+        },
+        style:{
+          zIndex: getMaxZIndex()
         }
       }, [title, h('div', {
         class: 'panel-action-items'
@@ -116,12 +119,25 @@ export default {
     },
     renderBody(h) {
 
+      const b = h('div', {
+        directives: [
+          {
+            name: 'scroll',
+            value: e => {
+              e => console.log(e, 1)
+            },
+            arg: '.panel-body-content'
+          },
+        ],
+        class: 'panel-body-content'
+      }, [this.$slots.default])
+
       return h('v-flex', {
         class: 'panel-body',
         attrs: {
           xs12: true
         }
-      }, [this.$slots.default]);
+      }, [b]);
     },
     findActionByName(name) {
       let found

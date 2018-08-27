@@ -1,6 +1,6 @@
 <template>
  <app-panel loading title="Users" name="用户" :actions="panel.actions" @action="action">
-   <card :round="3">
+   <card :round="3" flat>
      <vuetify-table :dark="$theme.dark" :color="$theme.accent" v-model="items" selectable api-url="/users" :headers="headers" :actions="actions"></vuetify-table>
    </card>
 
