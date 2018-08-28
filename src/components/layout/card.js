@@ -15,10 +15,10 @@ export default {
     }
   },
   render(h){
-
     return h('v-card', {
       class: this.flat ? this.cardClass + ' flat-card' : this.cardClass,
       attrs: this.$attrs,
+      nativeOn: this.$listeners,
       props: {
         flat: this.flat
       }

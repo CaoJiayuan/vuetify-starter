@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar class="elevation-2 app-top-bar" :color="$theme.color" :dark="$theme.dark" fixed :clipped-left="$vuetify.breakpoint.mdAndUp" dense app>
+  <v-toolbar class="app-top-bar" :color="$theme.color" :dark="$theme.dark" fixed :clipped-left="$vuetify.breakpoint.mdAndUp" dense app>
     <v-toolbar-side-icon @click="mini = !mini"></v-toolbar-side-icon>
     <v-toolbar-title>Vuetify admin</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -68,6 +68,10 @@
 
   const mapGetters = Vuex.mapGetters;
   import {getNavFromRoutes} from '../../../apis/home';
+  import UserApi from '../../../apis/user';
+  import {LOGIN_PATH} from '../../../constant';
+
+
   import Notification from './Notification.vue';
   import More from './More.vue';
 

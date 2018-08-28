@@ -2,7 +2,7 @@ require('./panel.sass');
 
 import {functions} from 'nerio-js-utils'
 
-const {useAsFunction,getMaxZIndex} = functions
+const {useAsFunction} = functions
 
 const presetActions = {
   add    : {
@@ -109,9 +109,6 @@ export default {
         class: 'panel-action',
         attrs: {
           xs12: true
-        },
-        style:{
-          zIndex: getMaxZIndex()
         }
       }, [title, h('div', {
         class: 'panel-action-items'

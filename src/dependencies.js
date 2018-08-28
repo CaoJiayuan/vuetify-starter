@@ -2,9 +2,12 @@ import VuetifyTable from 'nerio-vuetify-table'
 import Confirm from './components/confirm'
 import Toast from './components/toast'
 import Panel from './components/layout/panel'
+import Card from './components/layout/card'
+
 import Container from './components/layout/container'
 import Io from './io'
 import Theme from './theme'
+
 
 import { functions } from 'nerio-js-utils'
 
@@ -18,3 +21,5 @@ Vue.use(Panel)
 Vue.use(Container)
 Vue.use(Io)
 Vue.use(Theme)
+Vue.component('card', Card)
+

@@ -1,5 +1,7 @@
 import Users from '../pages/users/Index.vue'
 import Dashboard from '../pages/dashboard/Index.vue'
+import Login from '../pages/auth/Login.vue'
+
 
 
 const routes = [
@@ -19,6 +21,15 @@ const routes = [
     meta: {
       title : 'Users (table & panel example)',
       icon: 'account_box'
+    }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      title : 'Login',
+      guest: true
     }
   },
   {

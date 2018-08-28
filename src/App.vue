@@ -1,8 +1,8 @@
 <template>
   <v-app id="app">
-    <navigation></navigation>
+    <navigation v-if="!isLogin"></navigation>
 
-    <top-bar></top-bar>
+    <top-bar v-if="!isLogin"></top-bar>
 
     <v-content>
       <transition name="fade" mode="out-in">
@@ -15,20 +15,28 @@
 
 <script>
 import {tween, spring} from 'popmotion'
-import {APP_NAME} from './constant'
+import {APP_NAME, LOGIN_PATH} from './constant'
 import Navigation from './components/layout/Navigation.vue'
 import TopBar from './components/layout/TopBar/Index.vue'
 import AppTheme from './components/layout/theme/index'
 
 
+
 export default {
   components: {
     AppTheme,
-    Navigation,TopBar},
+    Navigation,
+    TopBar
+  },
   name: 'App',
   methods:{
     tap(){
 
+    }
+  },
+  computed:{
+    isLogin(){
+      return this.$route.path === LOGIN_PATH
     }
   },
   mounted(){
