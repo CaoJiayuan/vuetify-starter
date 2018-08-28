@@ -12,6 +12,13 @@ Mock.mock(url('/users'), options => {
   }, options)
 })
 
+Mock.mock(url('/logout'), options => {
+  return {
+    code : 200,
+    message: 'success'
+  }
+})
+
 Mock.mock(url('/user'), {
   name: Mock.Random.cname(),
   avatar: 'https://picsum.photos/300/300?random',

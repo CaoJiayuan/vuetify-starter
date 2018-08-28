@@ -1,5 +1,5 @@
 <template>
-<container grid grid-list-md text-xs-center>
+<container grid grid-list-md text-xs-center fluid>
   <v-layout wrap row>
     <v-flex xs12 md3>
       <card round="2" @click="add(100)">
