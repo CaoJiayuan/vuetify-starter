@@ -10,7 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "nerio-io-client": "^1.0.6",
+    "nerio-io-client": "^1.0.8",
     "nerio-js-utils": "^1.0.5",
     "nerio-vuetify-table": "^1.0.9",
     "popmotion": "^8.3.6"
@@ -59,7 +59,7 @@
     "vue-router": "^3.0.1",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
-    "vuetify": "^1.1.14",
+    "vuetify": "^1.2.0",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-dev-server": "^2.11.3",

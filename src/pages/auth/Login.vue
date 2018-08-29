@@ -1,8 +1,11 @@
 <template>
   <v-container fluid>
     <v-layout row justify-center>
-      <v-flex xs12 sm6 md4>
+      <v-flex xs12 sm8 md4 lg3>
           <card class="login-wrap" round="3">
+            <div class="login-progress">
+              <v-progress-linear color="success" indeterminate height="4" v-if="loading"></v-progress-linear>
+            </div>
             <div class="text-xs-center login-title" >
               <v-icon class="login-icon">account_box</v-icon>
               <h2>Login</h2>
@@ -15,7 +18,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary">Next</v-btn>
+              <v-btn color="primary" @click="next">Next</v-btn>
             </v-card-actions>
           </card>
       </v-flex>
@@ -24,14 +27,27 @@
 </template>
 <script>
 export default {
-
+  data(){
+    return {
+      loading: false
+    }
+  },
+  methods:{
+    next(){
+      this.loading = true
+    }
+  }
 }
 </script>
 <style lang="sass">
   .login-wrap
-    margin-top: 64px
+    margin-top: 128px
+    .login-progress
+      height: 4px
+    .v-progress-linear
+      margin: 0
     .login-title
-      margin: 16px 0 0
+      margin: 32px 0 0
       position: relative
       h2
         margin: 12px 0
