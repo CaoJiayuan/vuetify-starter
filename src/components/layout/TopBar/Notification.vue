@@ -29,11 +29,11 @@ export default {
     }
   },
   mounted() {
-//    this.$io.subscribe('notification').on('message', data => this.notifications.push({
-//      message: data,
-//      date:new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
-//      unread: true
-//    }))
+  //  this.$io.subscribe('notification').on('message', data => this.notifications.push({
+  //    message: data,
+  //    date:new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
+  //    unread: true
+  //  }))
   },
   computed:{
     unreads(){

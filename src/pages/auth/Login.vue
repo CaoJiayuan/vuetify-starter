@@ -7,18 +7,21 @@
               <v-progress-linear color="success" indeterminate height="4" v-if="loading"></v-progress-linear>
             </div>
             <div class="text-xs-center login-title" >
-              <v-icon class="login-icon">account_box</v-icon>
               <h2>Login</h2>
               <small class="desc grey--text">login with your account</small>
             </div>
 
 
             <v-card-text>
-              <v-text-field label="Email"></v-text-field>
+              <v-form ref="form">
+                <v-text-field :rules="rules.email" label="Email"></v-text-field>
+                <v-text-field type="password" :rules="rules.password" label="Password"></v-text-field>
+              </v-form>
             </v-card-text>
             <v-card-actions>
+              <router-link to="">Sign up</router-link>
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="next">Next</v-btn>
+              <v-btn color="primary" @click="login">login</v-btn>
             </v-card-actions>
           </card>
       </v-flex>
@@ -26,15 +29,33 @@
   </v-container>
 </template>
 <script>
+
+const required = v => !!v || 'Field is required'
+
 export default {
   data(){
     return {
-      loading: false
+      loading: false,
+      verified: false,
+      rules: {
+        email: [
+          required
+        ],
+        password: [
+          required
+        ]
+      }
     }
   },
   methods:{
-    next(){
-      this.loading = true
+    login(){
+      if(this.$refs.form.validate()){
+        this.loading = true
+        setTimeout(() => {
+          this.loading = false
+          this.$router.push('/')
+        }, 300)
+      }
     }
   }
 }

@@ -6,6 +6,8 @@ import Card from './components/layout/card'
 
 import Container from './components/layout/container'
 import Io from './io'
+import Socket from 'nerio-io-client'
+
 import Theme from './theme'
 
 
@@ -19,7 +21,10 @@ Vue.use(Confirm)
 Vue.use(Storage)
 Vue.use(Panel)
 Vue.use(Container)
-Vue.use(Io)
+Vue.use(Socket, {
+  url: process.env.IO_URL,
+  autoCreate: false
+})
 Vue.use(Theme)
 Vue.component('card', Card)
 

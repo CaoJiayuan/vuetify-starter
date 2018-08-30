@@ -1,8 +1,8 @@
 <template>
-<container grid grid-list-md text-xs-center fluid>
+<container grid grid-list-lg  fluid>
   <v-layout wrap row>
-    <v-flex xs12 md3>
-      <card round="2" @click="add(100)">
+    <v-flex xs12 md3 text-xs-center>
+      <card round="2" to="users">
         <v-toolbar :color="$theme.color" :dark="$theme.dark" flat dense>
           <h3>Users</h3>
           <v-spacer></v-spacer>
@@ -16,12 +16,28 @@
         </v-card-text>
       </card>
     </v-flex>
+    <v-flex xs12 md12>
+      <v-card>
+        <v-toolbar :dark="$theme.dark"  :color="$theme.color" flat dense><h3>Components</h3></v-toolbar>
+        <v-card-text>
+          <v-layout wrap row>
+            <v-flex xs12 md4>
+              <h4>Uploader:</h4>
+              <uploader/>
+            </v-flex>
+
+          </v-layout>
+        </v-card-text>
+      </v-card>
+    </v-flex>
   </v-layout>
 </container>
 </template>
 <script>
 import {tween, value} from 'popmotion'
 import {functions}  from 'nerio-js-utils'
+import Uploader  from '../../components/uploader'
+
 
 const {rand} = functions
 
@@ -31,6 +47,7 @@ export default {
       val: value(0)
     }
   },
+  components:{Uploader},
   computed:{
     users(){
       return this.val.get()
