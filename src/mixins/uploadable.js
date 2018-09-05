@@ -16,8 +16,6 @@ export default {
     doUpload(e) {
       for(let i = 0; i < e.target.files.length; i ++) {
         let file = e.target.files[i]
-        console.log(file)
-
         let f = {
           name: file.name,
           type: file.type

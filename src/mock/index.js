@@ -4,6 +4,10 @@ let {parseUrl, fastRandom} = functions
 
 const Mock = window.Mock
 
+const xhr = createNativeXMLHttpRequest()
+
+Mock.XHR.prototype.upload = xhr.upload
+
 Mock.mock(url('/users'), options => {
   return paginator({
     name : () => Mock.Random.name(),
@@ -62,4 +66,30 @@ function imageUrl (width = 640, height = 640, seed) {
 
 function url(u) {
   return new RegExp(`^${process.env.API_BASE_URL}${u}`)
+}
+
+
+function createNativeXMLHttpRequest() {
+  var isLocal = function() {
+    var rlocalProtocol = /^(?:about|app|app-storage|.+-extension|file|res|widget):$/
+    var rurl = /^([\w.+-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/
+    var ajaxLocation = location.href
+    var ajaxLocParts = rurl.exec(ajaxLocation.toLowerCase()) || []
+    return rlocalProtocol.test(ajaxLocParts[1])
+  }()
+
+  return window.ActiveXObject ?
+    (!isLocal && createStandardXHR() || createActiveXHR()) : createStandardXHR()
+
+  function createStandardXHR() {
+    try {
+      return new window._XMLHttpRequest();
+    } catch (e) {}
+  }
+
+  function createActiveXHR() {
+    try {
+      return new window._ActiveXObject("Microsoft.XMLHTTP");
+    } catch (e) {}
+  }
 }
