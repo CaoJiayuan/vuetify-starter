@@ -1,6 +1,7 @@
 import uploadable from '../../mixins/uploadable'
 
 import Card from '../layout/card'
+import Items from './items.vue'
 
 require('./uploader.sass')
 export default {
@@ -26,19 +27,10 @@ export default {
                 }
               }, this.label)
 
-    const items = this.files.map(file => {
-
-      let i = file.preview || file.icon
-
-      const icon = h('img', {
-        attrs:{
-          src: i
-        }
-      })
-
-      return h('div',{
-        class: 'upload-preview-item'
-      }, [icon, file.name])
+    let items = h(Items, {
+      props:{
+        files: this.items
+      }
     })
 
     let preview
@@ -47,8 +39,8 @@ export default {
       preview = this.$scopedSlots.preview(this.files)
     } else  {
       preview = h('v-card-media', {
-        class: 'upload-preview'
-      }, this.files.length > 0 ? items : [h('p', {
+        class: 'upload-preview',
+      }, this.files.length > 0 ? [items] : [h('p', {
         style: {
           textAlign: 'center',
           width: '100%',
