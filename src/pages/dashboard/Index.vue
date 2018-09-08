@@ -23,7 +23,8 @@
           <v-layout wrap row>
             <v-flex xs12 md4>
               <h4>Uploader:</h4>
-              <uploader/>
+              <uploader>
+              </uploader>
             </v-flex>
 
           </v-layout>
