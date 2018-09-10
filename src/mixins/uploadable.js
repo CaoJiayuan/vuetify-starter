@@ -38,6 +38,10 @@ export default {
     chunkSize: {
       type: Number,
       default: 256 * UploadFile.KB
+    },
+    multifile:{
+      type: Boolean,
+      default: true
     }
   },
   methods : {
@@ -172,7 +176,6 @@ export default {
   data() {
     return {
       fileEl        : null,
-      multifile     : true,
       files         : [],
       knownFileTypes: [
         'aep',

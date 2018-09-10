@@ -7,7 +7,7 @@ axios.interceptors.request.use(new Signer(process.env.API_KEY, 16).interceptor()
 
 axios.interceptors.request.use(config => {
   if (config.local !== true) {
-    config.baseURL = process.env.API_BASE_URL;
+    config.url.indexOf('http') !== 1 && (config.baseURL = process.env.API_BASE_URL);
   }
   return config;
 });
