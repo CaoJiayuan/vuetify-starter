@@ -5,7 +5,7 @@ import Panel from './components/layout/panel'
 import Card from './components/layout/card'
 
 import Container from './components/layout/container'
-import Io from './io'
+
 import Socket from 'nerio-io-client'
 
 import Theme from './theme'
