@@ -27,7 +27,7 @@ const state = {
     },
     {
       color: 'cyan',
-      dark: false,
+      dark: true,
     },
   ]
 };
