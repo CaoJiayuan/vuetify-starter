@@ -9,6 +9,7 @@
                     :items="actions"
                     label="跳转到"
                     no-data-text="这里什么也没有-_-!!!"
+                    :dark="$theme.dark"
                     hideDetails>
       <template
         slot="selection"
@@ -35,32 +36,7 @@
     <app-theme></app-theme>
     <notification/>
     <more></more>
-    <v-menu :close-on-content-click="false" v-model="menu" offset-y="72">
-      <v-avatar size="36" slot="activator">
-        <img :src="user.avatar" alt="avatar">
-      </v-avatar>
-      <v-card width="320">
-        <v-card-text>
-          <v-layout>
-            <v-flex xs4>
-              <v-avatar size="72">
-                <img :src="user.avatar" alt="avatar">
-              </v-avatar>
-            </v-flex>
-            <v-flex xs8>
-              <div>
-                <p>{{user.name}}</p>
-                <p>{{user.email}}</p>
-              </div>
-            </v-flex>
-          </v-layout>
-        </v-card-text>
-        <v-card-actions style="background: #eee">
-          <v-spacer></v-spacer>
-          <v-btn ripple @click="logout" flat :color="$theme.color">退出</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-menu>
+    <avatar></avatar>
   </v-toolbar>
 </template>
 <script>
@@ -68,12 +44,11 @@
 
   const mapGetters = Vuex.mapGetters;
   import {getNavFromRoutes} from '../../../apis/home';
-  import UserApi from '../../../apis/user';
-  import {LOGIN_PATH} from '../../../constant';
 
 
   import Notification from './Notification.vue';
   import More from './More.vue';
+  import Avatar from './Avatar.vue';
 
   export default {
     data() {
@@ -107,18 +82,10 @@
     },
     components: {
       AppTheme,
-      Notification, More},
+      Notification, More, Avatar
+    },
     methods   : {
-      logout() {
-        this.$confirm({
-          title: '确认退出?'
-        }).then(dismiss => {
-          UserApi.logout().then(res => {
-            dismiss();
-            this.$router.push(LOGIN_PATH);
-          });
-        });
-      },
+
       jumpTo(nav) {
         this.$router.push(nav.path)
         this.search = false

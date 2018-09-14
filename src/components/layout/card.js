@@ -5,7 +5,8 @@ export default {
       type: Number,
       default: 0
     },
-    flat: Boolean
+    flat: Boolean,
+    loading: Boolean
   },
   computed:{
     cardClass(){
@@ -22,6 +23,22 @@ export default {
       props: {
         flat: this.flat
       }
-    }, [this.$slots.default])
+    }, [this.$slots.default, this.loading ? this.renderLoading(h) : undefined])
+  },
+  methods:{
+    renderLoading(h){
+      const p = h('v-progress-circular', {
+        props: {
+          indeterminate: true,
+          color: this.$theme.accent,
+          width: 3
+        },
+        class: 'loading-progress'
+      })
+
+      return h('div', {
+        class: 'loading-wrapper'
+      }, [p])
+    }
   }
 }

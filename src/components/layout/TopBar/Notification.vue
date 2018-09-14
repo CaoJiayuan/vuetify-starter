@@ -1,8 +1,8 @@
 <template>
-  <v-menu :close-on-content-click="false" maxHeight="386" v-model="menu" offset-y="72">
+  <v-menu light :close-on-content-click="false" maxHeight="386" v-model="menu" offset-y="72">
       <v-badge slot="activator" v-ripple class="badge-small clickable" overlap color="red">
         <span slot="badge" v-if="unreads > 0">{{ unreads }}</span>
-        <v-icon>
+        <v-icon :dark="$theme.dark">
           notifications
         </v-icon>
       </v-badge>

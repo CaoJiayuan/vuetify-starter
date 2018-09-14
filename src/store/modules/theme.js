@@ -9,7 +9,23 @@ const state = {
       dark: true,
     },
     {
+      color: 'blue-grey',
+      dark: true,
+    },
+    {
+      color: 'cyan',
+      dark: true,
+    },
+    {
       color: 'green',
+      dark: true,
+    },
+    {
+      color: 'amber',
+      dark: false,
+    },
+    {
+      color: 'brown',
       dark: true,
     },
     {
@@ -17,18 +33,19 @@ const state = {
       dark: true,
     },
     {
-      color: 'smoke',
-      dark: false,
-      accent: 'primary'
+      color: 'teal',
+      dark: true,
     },
     {
       color: 'purple',
       dark: true,
     },
     {
-      color: 'cyan',
-      dark: true,
+      color: 'smoke',
+      dark: false,
+      accent: 'primary'
     },
+
   ]
 };
 

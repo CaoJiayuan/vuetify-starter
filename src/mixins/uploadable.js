@@ -121,6 +121,10 @@ export default {
     resolveUploadFiles(files) {
       return this.filesResolver(files);
     },
+    removeUploadFile(index) {
+      this.files.splice(index, 1)
+      this.emitChangeFiles();
+    },
     bind() {
       this.uploadInput.addEventListener('change', this.doUpload);
     },
@@ -159,6 +163,7 @@ export default {
         this.fileEl = document.createElement('input');
         this.fileEl.type = 'file';
         this.fileEl.multiple = this.multifile;
+        this.fileEl.accept = this.accept;
         // document.body.appendChild(this.fileEl);
       }
 

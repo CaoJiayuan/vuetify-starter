@@ -16,19 +16,41 @@
           </v-card-text>
         </card>
       </v-flex>
+      <v-flex xs12 md3>
+        <card loading round="2">
+          <v-toolbar :color="$theme.color" :dark="$theme.dark" flat dense>
+            <h3>Loading card</h3>
+          </v-toolbar>
+          <v-card-text>
+            <v-subheader>emmmmmmm</v-subheader>
+          </v-card-text>
+        </card>
+      </v-flex>
       <v-flex xs12 md12>
-        <v-card>
-          <v-toolbar :dark="$theme.dark" :color="$theme.color" flat dense><h3>Components</h3></v-toolbar>
+        <card>
+          <v-toolbar flat dense><h3>Components</h3></v-toolbar>
           <v-card-text>
             <v-layout wrap row>
               <v-flex xs12 md4>
-                <h4>Uploader:</h4>
-                <uploader chunk v-model="files">
+                <v-toolbar :color="$theme.color" :dark="$theme.dark" flat dense>
+                  <h3>Uploader</h3>
+                  <v-spacer></v-spacer>
+                  <v-btn icon @click="showFiles"><v-icon>save</v-icon></v-btn>
+                </v-toolbar>
+                <uploader upload-url="http://storage.test/upload" chunk v-model="files">
                 </uploader>
+              </v-flex>
+              <v-flex xs12>
+               <card >
+                 <v-toolbar :color="$theme.color" :dark="$theme.dark" flat dense>
+                   <h3>Editor (quill)</h3>
+                 </v-toolbar>
+                 <quill-editor v-model="content"></quill-editor>
+               </card>
               </v-flex>
             </v-layout>
           </v-card-text>
-        </v-card>
+        </card>
       </v-flex>
     </v-layout>
   </container>
@@ -47,10 +69,13 @@
         val  : value(0),
         files: [
 
-        ]
+        ],
+        content: '<h1>Text editor title</h1><p>text content</p>'
       };
     },
-    components: {Uploader},
+    components: {
+      Uploader,
+    },
     computed  : {
       users() {
         return this.val.get();
@@ -71,7 +96,7 @@
         }).pipe(Math.floor).start(this.val);
       },
       showFiles() {
-        console.log(this.files);
+        alert(JSON.stringify(this.files))
       }
     },
     filters   : {
