@@ -10,6 +10,12 @@
         </router-view>
       </transition>
     </v-content>
+    <!--<v-footer app>-->
+      <!--<v-toolbar flat dense>-->
+        <!--<v-spacer></v-spacer>-->
+        <!--&copy;{{ new Date().getFullYear() }} - Vuetify admin-->
+      <!--</v-toolbar>-->
+    <!--</v-footer>-->
   </v-app>
 </template>
 
