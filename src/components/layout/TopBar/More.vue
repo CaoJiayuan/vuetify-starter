@@ -1,6 +1,6 @@
 <template>
-  <v-menu :close-on-content-click="false" v-model="menu" offsetY>
-    <v-btn icon slot="activator">
+  <v-menu light :close-on-content-click="false" v-model="menu" offsetY>
+    <v-btn :dark="$theme.dark" icon slot="activator">
       <v-icon>more_vert</v-icon>
     </v-btn>
     <v-card width="200">

@@ -30,6 +30,9 @@ export default {
     let items = h(Items, {
       props:{
         files: this.items
+      },
+      on:{
+        remove: index => this.removeUploadFile(index)
       }
     })
 
@@ -38,7 +41,7 @@ export default {
     if (this.$scopedSlots.preview) {
       preview = this.$scopedSlots.preview(this.files)
     } else  {
-      preview = h('v-card-media', {
+      preview = h('v-responsive', {
         class: 'upload-preview',
       }, this.files.length > 0 ? [items] : [h('p', {
         style: {
@@ -62,9 +65,6 @@ export default {
 
     return h(Card, {
       class:'uploader',
-      props: {
-        round: 3
-      }
     }, [preview, button])
   }
 }

@@ -44,6 +44,9 @@ export default {
         on: {
           click: e => this.$theme.set(t)
         },
+        style:{
+          border: ['white'].indexOf(t.color) > -1 ? '1px solid #000' : undefined
+        }
       })
       return h('v-flex', {
         attrs: {
@@ -56,8 +59,8 @@ export default {
     const card = h('v-card', {
       slot: 'default',
       props: {
-        width: 200
-      }
+        width: 200,
+      },
     }, [h('v-layout', {
       attrs: {
         fluid: true,
@@ -71,7 +74,8 @@ export default {
       props:{
         offsetY: true,
         closeOnContentClick : false,
-        contentClass: 'round-3'
+        contentClass: 'round-3',
+        light: true
       }
     }, [btn, card])
   },

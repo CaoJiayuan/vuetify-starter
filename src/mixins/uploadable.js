@@ -38,6 +38,10 @@ export default {
     chunkSize: {
       type: Number,
       default: 256 * UploadFile.KB
+    },
+    multifile:{
+      type: Boolean,
+      default: true
     }
   },
   methods : {
@@ -117,6 +121,10 @@ export default {
     resolveUploadFiles(files) {
       return this.filesResolver(files);
     },
+    removeUploadFile(index) {
+      this.files.splice(index, 1)
+      this.emitChangeFiles();
+    },
     bind() {
       this.uploadInput.addEventListener('change', this.doUpload);
     },
@@ -155,6 +163,7 @@ export default {
         this.fileEl = document.createElement('input');
         this.fileEl.type = 'file';
         this.fileEl.multiple = this.multifile;
+        this.fileEl.accept = this.accept;
         // document.body.appendChild(this.fileEl);
       }
 
@@ -172,7 +181,6 @@ export default {
   data() {
     return {
       fileEl        : null,
-      multifile     : true,
       files         : [],
       knownFileTypes: [
         'aep',
