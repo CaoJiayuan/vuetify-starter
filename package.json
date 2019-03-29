@@ -12,7 +12,7 @@
   "dependencies": {
     "nerio-io-client": "^1.0.8",
     "nerio-js-utils": "^1.0.7",
-    "nerio-vuetify-table": "^1.0.9",
+    "nerio-vuetify-table": "^1.0.11",
     "popmotion": "^8.3.6"
   },
   "devDependencies": {
@@ -39,7 +39,7 @@
     "html-webpack-plugin": "^2.30.1",
     "mockjs": "^1.0.1-beta3",
     "node-notifier": "^5.1.2",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.17",
