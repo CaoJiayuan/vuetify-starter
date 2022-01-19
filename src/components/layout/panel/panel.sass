@@ -1,0 +1,28 @@
+$action-height: 64px
+.app-panel
+  height: 100%
+  overflow: hidden
+  .panel-action
+    width: 100%
+    border-bottom: 1px solid #e7e7e7
+    height: $action-height
+    .panel-action-items
+      padding: 16px 0
+    .panel-action-item
+      margin: 0 8px
+    .panel-title
+      font-size: 24px
+      height: $action-height
+      float: left
+      position: relative
+      &:after
+        content: ''
+        width: 1px
+        height: $action-height - 24px
+        background: #e2e2e2
+        position: absolute
+        right: 0
+  .panel-body
+    height: calc(100% - 64px)
+    overflow-y: scroll
+    padding: 25px 15px

@@ -1,0 +1,33 @@
+.confirm
+  border-radius: 4px
+  margin: 0 24px
+  overflow-y: auto
+  pointer-events: auto
+  transition: .3s ease-in-out
+  transform-origin: 50% 0
+  z-index: inherit
+  position: fixed
+  left: 50%
+  transform: translateX(-50%)
+  width: auto
+  box-shadow: 0 0 48px rgba(35, 35, 35, 0.62)
+  &-content
+    min-width: 256px
+  .header
+    text-align: center
+    padding: 5px 0
+    font-size: 18px
+    font-weight: bold
+  &-trans-enter,&-trans-leave-to
+    transform: translateY(-100%) translateX(-50%)
+  &-trans-leave-active,&-trans-enter-active
+    transition: all .3s ease
+
+.app-overlay
+  position: fixed
+  z-index: 10
+  left: 0
+  top: 0
+  height: 100vh
+  width: 100vw
+  background: rgba(0,0,0,.5)
