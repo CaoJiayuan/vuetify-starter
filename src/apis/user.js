@@ -1,6 +1,6 @@
 import {TOKEN_CACHE_NAME,TOKEN_EXPIRE_NAME} from '@/constant';
 import {functions} from 'nerio-js-utils';
-import axios from 'axios'
+const axios = window.axios
 let {Storage} = functions
 function Token() {
 

@@ -1,5 +1,5 @@
 import uploadable from '@/mixins/uploadable'
-import axios from "axios";
+const axios = window.axios
 import ListView from '../listview'
 import Item from './item'
 
@@ -14,7 +14,8 @@ export default {
       dialog: false,
       destroy: null,
       selected: [],
-      tabIndex: 0
+      tabIndex: 0,
+      $vuetify: null
     };
   },
   props:{
@@ -78,7 +79,7 @@ export default {
           color:  'write',
         },
         on:{
-          input(k) {
+          change(k) {
             self.selected = []
             self.tabIndex = k
           }
@@ -187,18 +188,17 @@ export default {
     }
   },
   render(h) {
-
     var self = this
     const close = h('v-btn', {
       props: {
-        flat: true,
+        text: true,
         small: true,
         fab: true
       },
       on:{
         click: this.dismiss
       }
-    }, [h('v-icon', {}, 'close')])
+    }, [h('v-icon', {}, 'mdi-close')])
 
     const title = h('v-toolbar', {
       props:{
@@ -215,14 +215,14 @@ export default {
     let actions = h('v-card-actions', {}, [
       h('v-spacer'),
       h('v-btn', {
-        props   : {flat: true},
+        props   : {text: true},
         class   : 'round-2',
         nativeOn: {
           click: this.dismiss
         }
       }, '取消'),
       h('v-btn', {
-        props   : {flat: true, color: this.$theme.color},
+        props   : {text: true, color: this.$theme.color},
         class   : 'round-2',
         attrs: {
           disabled: this.selected < 1
@@ -242,9 +242,16 @@ export default {
                 })
               }, {
                 params: this.params
-              }).then(res => self.onSubmit(res.data.map(item => self.processFile(item))))
+              }).then(res => {
+                let files = res.data.map(item => self.processFile(item))
+                files = files.single ? files[0] : files
+                self.$emit('submit', files)
+                self.onSubmit(files)
+              })
             } else {
-              self.onSubmit(self.selected)
+              let files = self.single ? self.selected[0] : self.selected
+              self.$emit('submit', files)
+              self.onSubmit(files)
             }
           }
         }

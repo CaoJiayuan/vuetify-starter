@@ -17,7 +17,7 @@ export default {
     },
     uploadDriver   : {
       type   : String,
-      default: process.env.UPLOAD_DRIVER || DRIVER_SERVER
+      default: process.env.VUE_APP_UPLOAD_DRIVER || DRIVER_SERVER
     },
     uploadValidator: {
       type   : Function,
@@ -62,7 +62,7 @@ export default {
       this.uploadInput.click();
     },
     doUpload(e) {
-      this.files = []
+      //this.files = []
       for (let i = 0; i < e.target.files.length; i++) {
         this.uploadSingle(e.target.files[i]);
       }
@@ -76,7 +76,7 @@ export default {
       let extension = uploadFile.getExtension();
       let icon = this.getIconByExtention(extension)
       let f = {
-        id       : md5(new Date().getTime() + fastRandom(10)),
+        id       : window.md5(new Date().getTime() + fastRandom(10)),
         name     : file.name,
         filename : file.name,
         type     : file.type,

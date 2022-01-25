@@ -1,8 +1,7 @@
+import moment from "moment";
 export default {
   methods: {
     processFile(v) {
-
-
       let partials =  v.name ? v.name.split('.') : v.filename.split('.');
 
       let ext = partials[partials.length - 1];

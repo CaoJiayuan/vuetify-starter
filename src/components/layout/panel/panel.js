@@ -3,20 +3,22 @@ require('./panel.sass');
 import {functions} from 'nerio-js-utils'
 
 const {useAsFunction} = functions
+const sprintf = window.sprintf
 
 const presetActions = {
   add    : {
-    icon : 'add_box',
+    icon : 'mdi-plus-box',
     click: 'add',
     temp: '创建%s'
   },
   edit    : {
-    icon : 'edit',
+    icon : 'mdi-pencil',
     click: 'edit',
-    temp: '编辑%s'
+    temp: '编辑%s',
+    color: 'secondary'
   },
   refresh: {
-    icon : 'refresh',
+    icon : 'mdi-refresh',
     click: 'refresh',
     temp: '刷新'
   }
@@ -38,14 +40,14 @@ export default {
     },
     loading: Boolean
   },
-
   data() {
     return {
-      presetActions
+      presetActions,
+      realName: this.title
     };
   },
   mounted() {
-    this.name = this.name || this.title;
+    this.realName = this.name || this.title;
   },
   render(h) {
 
@@ -85,7 +87,7 @@ export default {
         return h('v-btn', {
           class: 'panel-action-item',
           props: {
-            flat : true,
+            text : true,
             color: action.color || this.$theme.color,
             dark: action.dark || d,
             disabled: disabled,
@@ -116,7 +118,7 @@ export default {
     },
     renderBody(h) {
 
-      const b = h('div', {
+      const b = h('v-container', {
         directives: [
           {
             name: 'scroll',
@@ -137,9 +139,9 @@ export default {
       }, [b]);
     },
     findActionByName(name) {
-      let found
-      if (found = this.presetActions[name]) {
-        found.text = sprintf(found.temp, this.name)
+      let found = this.presetActions[name]
+      if (found) {
+        found.text = sprintf(found.temp, this.realName)
         return found
       }
     }

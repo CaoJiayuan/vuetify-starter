@@ -1,4 +1,4 @@
-import pagination from 'nerio-vuetify-table/lib/mixins/pagination';
+import pagination from '@/mixins/pagination';
 
 export default {
   name  : 'app-list',

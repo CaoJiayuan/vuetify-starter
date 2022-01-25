@@ -1,7 +1,7 @@
 <template>
   <v-menu
     :close-on-content-click="false"
-    v-model="status"
+    v-model="sta"
     :nudge-right="40"
     lazy
     transition="scale-transition"
@@ -9,13 +9,17 @@
     full-width
     min-width="290px"
   >
-    <v-text-field
-      slot="activator"
-      v-model="date"
-      readonly
-      clearable
-    ></v-text-field>
-    <v-date-picker  v-model="date" @input="status = false" locale="zh-cn"></v-date-picker>
+    <template v-slot:activator="{ on }">
+      <v-text-field
+          v-on="on"
+          slot="activator"
+          v-model="date"
+          readonly
+          clearable
+      ></v-text-field>
+    </template>
+
+    <v-date-picker  v-model="date" locale="zh-cn"></v-date-picker>
   </v-menu>
 </template>
 
@@ -24,7 +28,9 @@
     name    : "date-picker",
     props   : {
       status: {type: Boolean, default: false},
-      value : Date
+      value : {
+        type: [String, Date]
+      }
     },
     data() {
       return {}
@@ -37,6 +43,18 @@
         set(item) {
           this.$emit('input', item);
         }
+      },
+      sta: {
+        get() {
+          return this.status
+        },
+        set(item) {
+          this.$emit('change:status', item);
+        }
+      }
+    },
+    watch: {
+      date(n) {
       }
     }
   }

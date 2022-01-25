@@ -1,6 +1,10 @@
+import {mapActions} from "vuex";
+
 require('./exception.sass')
+import {VCard, VCardText, VCardActions, VSpacer, VBtn, VIcon, VToolbar, VDialog} from 'vuetify/lib'
 
 export default {
+  name: 'exception',
   data () {
     return {
       data: {
@@ -13,16 +17,19 @@ export default {
     }
   },
   render (h) {
-    const close = h('v-btn', {
+    const close = h(VBtn, {
       props: {
-        flat: true,
+        text: true,
         small: true,
-        fab: true
+        fab: true,
+        dark: false
       },
       on:{
         click: this.unbind
       }
-    }, [h('v-icon', {}, 'close')])
+    }, [h(VIcon, {
+      dark: false
+    }, 'mdi-close')])
 
     const chip = h('div',{
       class: 'exception-chip'
@@ -31,45 +38,57 @@ export default {
       class: 'execption-title'
     },[h('p', {}, this.data.message), h('small', {}, 'file: ' + this.data.file)])
 
-    const title = h('v-toolbar', {
+    const title = h(VToolbar, {
       props:{
         color:'red',
         dense: true,
         flat: true,
         dark: true
       }
-    }, [chip, t , h('v-spacer') ,close])
+    }, [chip, t , h(VSpacer) ,close])
 
-    const body = this.data.trace.map(t => {
+    let trace = this.data.trace || []
+    const body = trace.map(t => {
       return h('p', {}, t)
     })
 
-    const card = h('v-card', {
+    const card = h(VCard, {
       class: 'exception-wrap'
-    }, [title, h('v-card-text', {
+    }, [title, h(VCardText, {
       class: 'exception-body'
     }, body.length > 0 ? body : ['No trace to show, server may not in debug mode'] )])
 
-    return h('v-dialog', {
+    return h(VDialog, {
       props: {
         maxWidth: '1024',
         value: this.dialog,
         transition: 'slide-y-reverse-transition',
         persistent: true,
-        contentClass: 'exception round-3'
+        contentClass: 'exception round-3',
+      },
+      attrs: {
+        id: 'dialog-exception'
       },
       ref: 'dialog'
     }, [card])
   },
   methods:{
+    ...mapActions({
+      unTrigger: 'exception/unTrigger'
+    }),
     unbind(){
       this.dialog = false
+      this.unTrigger()
       if (typeof this.destroy === 'function') {
         this.destroy();
       }
     },
     active(){
       this.dialog = true
+    },
+    trigger(data) {
+      this.data = data
+      this.active()
     }
   }
 }

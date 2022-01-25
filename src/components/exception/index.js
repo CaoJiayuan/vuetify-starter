@@ -1,29 +1,30 @@
 import Exception from './exception'
-import { functions } from 'nerio-js-utils'
-
-let {fastRandom} = functions
+import store from "@/store";
 
 Exception.install = function (Vue) {
-  Vue.prototype.$exception = renderException
+    Vue.prototype.$exception = renderException
 }
 
 export function renderException(data) {
-  const Component = Vue.extend(Exception)
-
-  let container = document.createElement('div')
-  container.id = 'exception-' + fastRandom(16)
-  document.body.insertBefore(container, document.body.firstChild)
-  let body = document.createElement('div')
-  container.appendChild(body)
-  const destroy = () => setTimeout(() => document.body.removeChild(container), 600);
-  let com = new Component({
-    data: {
-      data,
-      destroy
-    }
-  }).$mount(body)
-
-  com.active()
+    store.dispatch('exception/trigger', data)
+    // const Component = Vue.extend(Exception)
+    //
+    // let container = document.createElement('div')
+    // let app = document.getElementById('app')
+    // container.id = 'exception-' + fastRandom(16)
+    // app.appendChild(container)
+    // document.body.insertBefore(container, document.body.firstChild)
+    // let body = document.createElement('div')
+    // container.appendChild(body)
+    // const destroy = () => {};
+    // let com = new Component({
+    //   data: {
+    //     data,
+    //     destroy
+    //   }
+    // }).$mount(body)
+    //
+    // com.active()
 }
 
 export default Exception

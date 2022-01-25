@@ -2,14 +2,14 @@ import {toast} from '@/components/toast'
 import {renderException} from '@/components/exception'
 import {isProduction} from './utils'
 import {BrowserStorage} from 'nerio-js-utils'
-import {TOKEN_CACHE_NAME} from '@/constant'
+import {TOKEN_CACHE_NAME, API_BASE_URL} from '@/constant'
 import router from '@/router'
-import axios from 'axios'
+const axios = window.axios
 const bs = new BrowserStorage()
 
 axios.interceptors.request.use(config => {
   if (config.local !== true) {
-    config.url.indexOf('http') !== 1 && (config.baseURL = process.env.API_BASE_URL);
+    config.url.indexOf('http') !== 1 && (config.baseURL = API_BASE_URL);
   }
 
   let token = bs.get(TOKEN_CACHE_NAME)

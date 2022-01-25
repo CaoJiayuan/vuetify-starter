@@ -11,9 +11,13 @@
     "@mdi/font": "5.9.55",
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
+    "moment": "^2.29.1",
     "nerio-js-utils": "^1.0.11",
+    "nerio-uploader": "^1.0.9",
+    "nerio-vuetify-table": "^1.0.11",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.0",
     "vuex": "^3.4.0"
@@ -33,6 +37,7 @@
     "sass-loader": "^10.0.0",
     "vue-cli-plugin-vuetify": "~2.4.5",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
+    "vuetify-loader": "^1.7.0",
+    "webpack-aliyun-oss-plugin": "^2.1.0"
   }
 }

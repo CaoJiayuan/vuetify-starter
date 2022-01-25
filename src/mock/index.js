@@ -1,5 +1,6 @@
 import {functions} from 'nerio-js-utils'
 let {parseUrl, fastRandom} = functions
+import {API_BASE_URL} from "@/constant";
 
 import Mock from 'mockjs'
 const xhr = createNativeXMLHttpRequest()
@@ -21,10 +22,36 @@ Mock.mock(url('/logout'), options => {
   }
 })
 
+Mock.mock(url('/upload'), options => {
+  return {
+    url : 'https://picsum.photos/300/300?random',
+    type: 'image/jpeg',
+    filename: 'foobar'
+  }
+})
+
+Mock.mock(url('/attachments/batch'), options => {
+  return [
+    {
+      url : 'https://picsum.photos/300/300?random',
+      type: 'image/jpeg',
+      filename: 'foobar',
+    }
+  ]
+})
+
 Mock.mock(url('/user'), {
   name: Mock.Random.cname(),
   avatar: 'https://picsum.photos/300/300?random',
   email: () => Mock.Random.email()
+})
+Mock.mock(url('/attachments'), options =>{
+  let data = paginator({
+    url : () => imageUrl(),
+    type: 'image/jpeg',
+    filename: () => Mock.Random.name(),
+  }, options);
+  return data
 })
 
 function paginator(templateItem, options, total = 100) {
@@ -52,6 +79,7 @@ function paginator(templateItem, options, total = 100) {
     to           : to,
   });
 
+
   return Mock.mock(template)
 }
 
@@ -63,7 +91,7 @@ function imageUrl (width = 640, height = 640, seed) {
 }
 
 function url(u) {
-  return new RegExp(`${u}`)
+  return new RegExp(`${API_BASE_URL}${u}`)
 }
 
 

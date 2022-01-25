@@ -1,0 +1,32 @@
+@for $i from 1 through 10
+  .round-#{$i}
+    border-radius: 2px * $i !important
+
+@for $i from 1 through 10
+  .dot-#{$i}
+    border-radius: 100%
+    width: $i * 2px
+    height: $i * 2px
+
+.pull-right
+  float: right
+
+.pull-left
+  float: left
+
+.flat-card
+  border: 1px solid #e2e2e2
+
+.app-card
+  overflow: hidden
+  .loading-wrapper
+    position: absolute
+    top: 0
+    height: 100%
+    width: 100%
+    line-height: 100%
+    background-color: rgba(255, 255, 255, 0.85)
+    .loading-progress
+      top: 50%
+      left: 50%
+      transform: translate(-50%,-50%)

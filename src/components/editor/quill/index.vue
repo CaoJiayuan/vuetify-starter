@@ -81,7 +81,7 @@
 <script>
   import { upload, UploadFile } from 'nerio-uploader'
   import { functions } from 'nerio-js-utils'
-
+  import {quillEditor} from 'vue-quill-editor/src'
   const {fastRandom} = functions
   export default {
     name      : 'quill',
@@ -94,12 +94,12 @@
     },
     data() {
       return {
-        uploadDriver : process.env.UPLOAD_DRIVER || 'server',
+        uploadDriver : process.env.VUE_APP_UPLOAD_DRIVER || 'server',
         quill: null,
         imgProgress: -1,
       };
     },
-    components: {},
+    components: {quillEditor},
     methods   : {
       imgHandler (state) {
         if (state) {
@@ -132,7 +132,7 @@
             let url = file.url.split('?', 2)[0]
             if (this.quill) {
               let range = this.quill.getSelection();
-              this.quill.insertEmbed(range !== null ? range.index : 0, 'image', url, Quill.sources.USER)
+              this.quill.insertEmbed(range !== null ? range.index : 0, 'image', url, window.Quill.sources.USER)
             }
             this.imgProgress = -1
           })

@@ -4,14 +4,13 @@
       <v-flex xs3 class="preview">
         <div class="preview-img" :style="{backgroundImage: `url(${file.preview})`}"></div>
         <div v-if="file.error" class="preview-error">
-          <v-icon color="red">error</v-icon>
+          <v-icon color="red">mdi-alert-circle</v-icon>
         </div>
       </v-flex>
       <v-flex xs9 text-xs-left>
         <div style="height: 50%">
           <p class="attachment-item-title pull-left">{{ file.name | strLimit(32) }}</p>
-          <v-icon v-if="isSelected" color="lime" class="uploaded-icon pull-right">checked</v-icon>
-
+          <v-icon v-if="isSelected" color="lime" class="uploaded-icon pull-right">mdi-check</v-icon>
         </div>
         <small style="color: gray;">{{ file.time }}</small>
         <v-progress-linear class="upload-progress" v-if="!file.done && !file.error" height="4" :color="$theme.accent"
@@ -83,4 +82,6 @@
       height: 80px
       background-size: contain
       background-position: center
+    .preview-error
+      text-align: center
 </style>
