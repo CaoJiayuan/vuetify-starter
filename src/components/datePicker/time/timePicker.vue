@@ -12,13 +12,16 @@
     max-width="290px"
     min-width="290px"
   >
-    <v-text-field
-      slot="activator"
-      v-model="time"
-      prepend-icon="access_time"
-      readonly
-      clearable
-    ></v-text-field>
+    <template #activator="{on}">
+      <v-text-field
+          v-on="on"
+          v-model="time"
+          prepend-icon="mdi-clock-outline"
+          readonly
+          clearable
+      ></v-text-field>
+    </template>
+
     <v-time-picker v-model="time" format="24hr" @change="$refs.timeMenu.save(time)"></v-time-picker>
   </v-menu>
 </template>
@@ -28,7 +31,7 @@
     name    : "time-picker",
     props   : {
       status: {type: Boolean, default: false},
-      value : Date
+      value : [Date, String]
     },
     data() {
       return {

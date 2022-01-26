@@ -1,0 +1,14 @@
+.v-data-table__expanded__content {
+  box-shadow: none !important;
+}
+.app-data-table {
+  .app-data-table-title {
+    font-size: 20px;
+    line-height: 80px;
+  }
+  .app-data-table-filters {
+    button+button {
+      margin-left: 12px;
+    }
+  }
+}

@@ -15,7 +15,9 @@
           slot="activator"
           v-model="date"
           readonly
+          prepend-icon="mdi-calendar"
           clearable
+          :label="label"
       ></v-text-field>
     </template>
 
@@ -30,7 +32,8 @@
       status: {type: Boolean, default: false},
       value : {
         type: [String, Date]
-      }
+      },
+      label: String
     },
     data() {
       return {}
