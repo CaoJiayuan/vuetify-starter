@@ -1,6 +1,7 @@
 const ossRegion = process.env.ALI_OSS_REGION
 const ossBuildPath = 'static/vuetify-starter'
 const isOss = process.env.STATIC_BUILD_MODE === 'oss'
+const ossBucket = process.env.ALI_OSS_BUCKET
 module.exports = {
     transpileDependencies: [
         'vuetify'
@@ -21,5 +22,5 @@ module.exports = {
                 }])
         }
     },
-    publicPath: (process.env.NODE_ENV !== 'development' && isOss) ? (`https://${ossRegion}.aliyuncs.com/${ossBuildPath}`) : './',
+    publicPath: (process.env.NODE_ENV !== 'development' && isOss) ? (`https://${ossBucket}.${ossRegion}.aliyuncs.com/${ossBuildPath}`) : './',
 }
