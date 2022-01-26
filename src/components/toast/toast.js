@@ -12,18 +12,23 @@ export default {
 
     const close = h('v-btn', {
       props: {
-        flat: true,
+        text: true,
         fab: true,
         small: true
       },
       on: {
         click: e => this.toast = false
       }
-    }, [h('v-icon', {}, 'close')])
+    }, [h('v-icon', {}, 'mdi-close')])
 
     return h('v-snackbar', {
       props: this.options,
-    }, [this.options.text, this.options.timeout >= 3000 ? close : undefined])
+      scopedSlots: {
+        action(attrs) {
+          return close
+        }
+      }
+    }, [this.options.content])
   },
   methods:{
     setOptions(o) {
