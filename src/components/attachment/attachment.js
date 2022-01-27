@@ -206,7 +206,7 @@ export default {
         dense: true,
         flat: true,
         dark: true,
-        height: '38px'
+        height: '48px'
       }
     }, [h('h3', {}, '附件'), h('v-spacer'), close])
 
