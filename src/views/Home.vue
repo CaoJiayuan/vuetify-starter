@@ -6,6 +6,7 @@
       <v-container>
         <v-btn @click="exc">ex</v-btn>
         <v-btn @click="upload">Upload attachments</v-btn>
+        <v-btn @click="$toast('hhh')">toast</v-btn>
         <date-picker label="DatePicker" v-model="date"></date-picker>
         <time-picker label="TimePicker" v-model="time"/>
         <quill v-model="text"/>
@@ -38,12 +39,7 @@
 </template>
 
 <script>
-
-  import {renderException} from "@/lib/components/exception";
-  import DatePicker from "@/lib/components/datePicker/Index";
-  import Quill from "@/lib/components/editor/quill";
-  import TimePicker from "@/lib/components/datePicker/time/timePicker";
-  import DataTable from "@/lib/components/dataTable";
+  import {Quill, DataTable, TimePicker, DatePicker, renderException} from "@/lib";
 
   export default {
     name: 'Home',

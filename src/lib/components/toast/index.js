@@ -9,7 +9,7 @@ Toast.install = function (Vue) {
   Vue.prototype.$toast = toast
 }
 
-export function toast(content, type = 'success', timeout = 2000, top = true, right, bottom, left) {
+export function toast(content, type = 'success', timeout = 5000, top = true, right, bottom, left) {
   const Component = Vue.extend(Toast)
   let container = document.createElement('div')
   let app = document.getElementById('app')

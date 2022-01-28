@@ -27,5 +27,4 @@ Confirm.install = function (v) {
     })
   }
 }
-Vue.use(Confirm)
 export default Confirm
