@@ -1,4 +1,4 @@
-import pagination from '@/mixins/pagination';
+import pagination from '../../mixins/pagination';
 import './datatable.scss'
 import {functions} from "nerio-js-utils";
 const {standby} = functions

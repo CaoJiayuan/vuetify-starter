@@ -1,4 +1,4 @@
-import pagination from '@/mixins/pagination';
+import pagination from '../../mixins/pagination';
 
 export default {
   name  : 'app-list',

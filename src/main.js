@@ -3,10 +3,11 @@ import App from './App.vue'
 import Vuetify from "vuetify";
 import router from './router'
 import store from './store'
-require('@/components/confirm')
+
 import vuetify from './plugins/vuetify'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+import {setup} from './lib'
 Vue.use(Vuetify);
 Vue.config.productionTip = false
 require('./mock')
@@ -18,5 +19,5 @@ export const VueApp = new Vue({
   vuetify,
   render: h => h(App)
 })
-
+setup(VueApp)
 VueApp.$mount('#app')

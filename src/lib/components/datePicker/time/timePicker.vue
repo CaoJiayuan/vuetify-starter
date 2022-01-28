@@ -5,10 +5,8 @@
     v-model="menu2"
     :nudge-right="40"
     :return-value.sync="time"
-    lazy
     transition="scale-transition"
     offset-y
-    full-width
     max-width="290px"
     min-width="290px"
   >
@@ -19,6 +17,7 @@
           prepend-icon="mdi-clock-outline"
           readonly
           clearable
+          :label="label"
       ></v-text-field>
     </template>
 
@@ -31,7 +30,8 @@
     name    : "time-picker",
     props   : {
       status: {type: Boolean, default: false},
-      value : [Date, String]
+      value : [Date, String],
+      label: String
     },
     data() {
       return {

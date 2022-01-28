@@ -4,12 +4,12 @@
 
     <top-bar v-if="!isLogin"></top-bar>
 
-    <v-content>
+    <v-main>
       <transition name="fade" mode="out-in">
         <router-view>
         </router-view>
       </transition>
-    </v-content>
+    </v-main>
     <!--<v-footer app>-->
     <!--<v-toolbar flat dense>-->
     <!--<v-spacer></v-spacer>-->
@@ -24,7 +24,7 @@
 import {APP_NAME, LOGIN_PATH} from './constant'
 import Navigation from './components/layout/Navigation.vue'
 import TopBar from './components/layout/TopBar/Index.vue'
-import Exception from "@/components/exception/exception";
+import Exception from "@/lib/components/exception/exception";
 import {mapGetters} from 'vuex'
 import {isProduction} from "@/utils/utils";
 

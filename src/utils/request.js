@@ -1,5 +1,5 @@
-import {toast} from '@/components/toast'
-import {renderException} from '@/components/exception'
+import {toast} from '@/lib/components/toast'
+import {renderException} from '@/lib/components/exception'
 import {isProduction} from './utils'
 import {BrowserStorage} from 'nerio-js-utils'
 import {TOKEN_CACHE_NAME, API_BASE_URL} from '@/constant'

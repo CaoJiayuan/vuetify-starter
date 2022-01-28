@@ -1,5 +1,3 @@
-import {mapActions} from "vuex";
-
 require('./exception.sass')
 import {VCard, VCardText, VCardActions, VSpacer, VBtn, VIcon, VToolbar, VDialog} from 'vuetify/lib'
 
@@ -73,12 +71,8 @@ export default {
     }, [card])
   },
   methods:{
-    ...mapActions({
-      unTrigger: 'exception/unTrigger'
-    }),
     unbind(){
       this.dialog = false
-      this.unTrigger()
       if (typeof this.destroy === 'function') {
         this.destroy();
       }

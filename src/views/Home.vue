@@ -39,11 +39,11 @@
 
 <script>
 
-  import {renderException} from "@/components/exception";
-  import DatePicker from "@/components/datePicker/Index";
-  import Quill from "@/components/editor/quill";
-  import TimePicker from "@/components/datePicker/time/timePicker";
-  import DataTable from "@/components/dataTable";
+  import {renderException} from "@/lib/components/exception";
+  import DatePicker from "@/lib/components/datePicker/Index";
+  import Quill from "@/lib/components/editor/quill";
+  import TimePicker from "@/lib/components/datePicker/time/timePicker";
+  import DataTable from "@/lib/components/dataTable";
 
   export default {
     name: 'Home',

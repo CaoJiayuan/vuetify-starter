@@ -1,4 +1,4 @@
-import uploadable from '@/mixins/uploadable'
+import uploadable from '../../mixins/uploadable'
 const axios = window.axios
 import ListView from '../listview'
 import Item from './item'
