@@ -1,4 +1,5 @@
 let vuetify
+import Vue from 'vue'
 import Attachment from "./components/attachment"
 import Confirm from "./components/confirm"
 import Toast from "./components/toast"
@@ -10,6 +11,9 @@ import {renderException} from "@/lib/components/exception";
 
 export function setup(vueApp) {
     vuetify = vueApp.$vuetify
+    Vue.use(Attachment)
+    Vue.use(Confirm)
+    Vue.use(Toast)
 }
 
 export {vuetify, Attachment, Confirm, DataTable, Quill, TimePicker, DatePicker, renderException, Toast}
