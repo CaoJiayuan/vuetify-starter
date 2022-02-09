@@ -1,7 +1,7 @@
 import Toast from './toast'
 import { functions } from 'nerio-js-utils'
 import Vue from 'vue'
-import {VueApp} from "@/main";
+import {vuetify} from '../../index'
 
 let {fastRandom} = functions
 
@@ -18,7 +18,7 @@ export function toast(content, type = 'success', timeout = 5000, top = true, rig
   let body = document.createElement('div')
   container.appendChild(body)
   let com = new Component()
-  com.$vuetify = VueApp.$vuetify
+  com.$vuetify = vuetify
   com.$mount(body)
   com.setOptions({
     content: content,

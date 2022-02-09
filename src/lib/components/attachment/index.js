@@ -1,6 +1,5 @@
 import Attachment from './attachment'
-import {fastRandom} from "nerio-js-utils/lib/functions";
-import {rememberCom} from "@/utils/utils";
+import {rememberCom} from "../../utils/utils";
 const md5 = window.md5
 
 const defaultOptions = {

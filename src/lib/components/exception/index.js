@@ -1,7 +1,7 @@
 import Exception from './exception'
 import Vue from 'vue'
 import {vuetify} from '../../index'
-import {rememberCom} from "@/utils/utils";
+import {rememberCom} from "../../utils/utils";
 const md5 = window.md5
 
 Exception.install = function (Vue) {
