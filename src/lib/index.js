@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Attachment from "./components/attachment"
 import Confirm from "./components/confirm"
 import Toast from "./components/toast"
+import {toast} from "./components/toast"
 import DataTable from "./components/dataTable"
 import Quill from "./components/editor/quill/index.vue"
 import DatePicker from "./components/datePicker/Index";
@@ -16,4 +17,4 @@ export function setup(vueApp) {
     Vue.use(Toast)
 }
 
-export {vuetify, Attachment, Confirm, DataTable, Quill, TimePicker, DatePicker, renderException, Toast}
+export {vuetify, Attachment, Confirm, DataTable, Quill, TimePicker, DatePicker, renderException, toast}
