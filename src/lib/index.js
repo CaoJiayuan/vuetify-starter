@@ -11,6 +11,7 @@ import TimePicker from "./components/datePicker/time/timePicker";
 import {renderException} from "./components/exception";
 
 export function setup(vueApp) {
+    require('./styles/app.scss')
     vuetify = vueApp.$vuetify
     Vue.use(Attachment)
     Vue.use(Confirm)

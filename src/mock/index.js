@@ -6,7 +6,9 @@ import Mock from 'mockjs'
 const xhr = createNativeXMLHttpRequest()
 
 Mock.XHR.prototype.upload = xhr.upload
-
+Mock.setup({
+  timeout: '200-600'
+})
 Mock.mock(url('/users'), options => {
   return paginator({
     name : () => Mock.Random.name(),

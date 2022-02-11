@@ -96,7 +96,7 @@ export default {
                     }
                 }, [this.title])]))
             }
-            if (this.selectable) {
+            if (this.searchable) {
                 coms.push(h('v-col', {
                     props: {
                         md: 4,
@@ -106,6 +106,8 @@ export default {
                     props: {
                         appendIcon: 'mdi-magnify',
                         label: '搜索',
+                        clearable: true,
+                        value: this.keyword
                     },
                     on: {
                         'keyup.enter': e => {
@@ -236,13 +238,25 @@ export default {
                 }
             },
         })
+        const refresh = h('v-btn', {
+            props: {
+                text: true,
+                small: true
+            },
+            class: 'app-data-table-refresh',
+            on: {
+                click: this.refresh
+            }
+        }, [h('v-icon', {
+            class: this.loading ? '_rotating' : ''
+        }, 'mdi-sync'), '刷新'])
 
 
         return h('div', {
             attrs: {
                 class: 'app-data-table'
             }
-        }, [this.renderFilters(h), this.renderHead(h), table])
+        }, [this.renderFilters(h), this.renderHead(h), table, refresh])
     },
     mounted() {
         this.autoload && this.load({})
