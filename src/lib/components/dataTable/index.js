@@ -18,7 +18,11 @@ export default {
         actions: Array,
         expandedClass: String,
         title: String,
-        searchable: Boolean
+        searchable: Boolean,
+        actionsAlign: {
+            type: String,
+            default: () => 'right'
+        }
     },
     mixins: [pagination],
     data() {
@@ -38,8 +42,9 @@ export default {
                 return [...this.headers, {
                     value: '_actions',
                     text: '操作',
+                    align: this.actionsAlign,
                     render:(h, {item}) => {
-                        return this.actions.map(act => {
+                        let btns = this.actions.map(act => {
                             let renderer = act.render || ((h, act) => {
                                 let ps = Object.assign({
                                     color: act.color || 'primary'
@@ -59,6 +64,10 @@ export default {
 
                             return renderer(h, act)
                         })
+
+                        return h('div', {
+                            class: 'app-data-table-actions'
+                        }, btns)
                     }
                 }]
             }

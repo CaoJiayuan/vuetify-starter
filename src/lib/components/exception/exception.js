@@ -41,7 +41,8 @@ export default {
         color:'red',
         dense: true,
         flat: true,
-        dark: true
+        dark: true,
+        height: 'fit-content'
       }
     }, [chip, t , h(VSpacer) ,close])
 

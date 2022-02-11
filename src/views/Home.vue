@@ -61,12 +61,19 @@
         ],
         tableActions: [
           {
-            action: 'add',
-            icon: 'mdi-plus',
-            text: 'add',
+            action: 'edit',
+            text: '编辑',
             props: {
               small: true,
-              text: true
+            }
+          },
+          {
+            action: 'delete',
+            text: '删除',
+            props: {
+              small: true,
+              color: 'red',
+              dark: true
             }
           }
         ],
@@ -82,7 +89,9 @@
     methods: {
       exc() {
         renderException({
-          file: "xxxxxx"
+          file: "xxxxxx",
+          message: 'Server error 500\n' +
+              'SQLSTATE[42S22]: Column not found: 1054 Unknown column \'mobile\' in \'where clause\' (SQL: select * from `admins` where `mobile` = 15196600337 and `admins`.`deleted_at` is null limit 1)'
         })
       },
       upload() {

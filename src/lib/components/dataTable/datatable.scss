@@ -11,4 +11,9 @@
       margin-left: 12px;
     }
   }
+  .app-data-table-actions {
+    button+button {
+      margin-left: 4px;
+    }
+  }
 }
