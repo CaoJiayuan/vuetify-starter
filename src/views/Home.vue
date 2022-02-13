@@ -8,10 +8,11 @@
         <v-btn @click="upload">Upload attachments</v-btn>
         <v-btn @click="$toast('hhh')">toast</v-btn>
 
-        <data-form v-model="formData" url="users">
+        <data-form @submitted="submitted" v-model="formData" url="users">
           <v-text-field v-model="formData.name" :rules="rules.name" label="Name"></v-text-field>
           <date-picker :rules="rules.name" label="DatePicker" v-model="formData.date"></date-picker>
           <time-picker label="TimePicker" v-model="formData.time"/>
+          <file-uploader chunk label="上传文件" v-model="formData.fileurl" />
           <quill v-model="formData.text"/>
         </data-form>
       </v-container>
@@ -29,7 +30,7 @@
       </v-toolbar>
       <v-divider></v-divider>
       <v-container>
-        <data-table searchable expanded-class="exp-user" @add="tableAdd" :headers="tableHeaders" :actions="tableActions" api-url="/users" selectable v-model="selected">
+        <data-table @edit="edit" searchable expanded-class="exp-user" @add="tableAdd" :headers="tableHeaders" :actions="tableActions" api-url="/users" selectable v-model="selected">
       <template #expanded="{item}">
         <div>{{item.name}}</div>
       </template>
@@ -49,6 +50,7 @@
 <script>
   import {Quill, DataTable, TimePicker, DatePicker, renderException, DataForm} from "@/lib";
   import DialogForm from "@/lib/components/form/DialogForm";
+  import FileUploader from "@/lib/components/uploader/file";
   const rules = {
     name : [
         v => !!v || 'name is required'
@@ -101,6 +103,7 @@
       }
     },
     components: {
+      FileUploader,
       DialogForm,
       DataForm,
       DataTable,
@@ -118,11 +121,18 @@
       },
       upload() {
         this.$attachment(console.log, {
-          // single: true
+          single: true
         })
       },
       tableAdd(item) {
         console.log(item)
+      },
+      edit(row, reload) {
+        console.log(row)
+        reload()
+      },
+      submitted(data) {
+        console.log(this.formData)
       }
     }
   }

@@ -57,7 +57,7 @@ export default {
                                 return h('v-btn', {
                                     props: ps,
                                     on: {
-                                        click: e => this.$emit(act.action, item)
+                                        click: e => this.$emit(act.action, item, this.refresh)
                                     }
                                 }, [icon, act.text])
                             })

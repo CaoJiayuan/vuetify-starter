@@ -9,7 +9,7 @@ export default {
   props   : {
     uploadUrl      : {
       type   : String,
-      default: '/upload'
+      default: process.env.VUE_APP_UPLOAD_URL || '/upload'
     },
     stsUrl      : {
       type   : String,
@@ -75,18 +75,25 @@ export default {
       let uploadFile = new UploadFile(file);
       let extension = uploadFile.getExtension();
       let icon = this.getIconByExtention(extension)
-      let f = {
-        id       : window.md5(new Date().getTime() + fastRandom(10)),
-        name     : file.name,
-        filename : file.name,
-        type     : file.type,
-        progress : 0,
-        url      : null,
-        error    : false,
-        errorMsg : '',
-        done     : false,
-        tick     : 0
-      };
+      let f
+      if (!this.multifile) {
+        f = this.file
+      } else {
+        f = {
+          progress : 0,
+          url      : null,
+          error    : false,
+          errorMsg : '',
+          done     : false
+        }
+      }
+      f.valid = true
+      f.name = file.name
+      f.uploading = true
+      f.type = file.type
+      f.preview = null
+      f.error = false
+      f.errorMsg = ''
       this.files.push(f);
 
       if (uploadFile.isImage()) { // image preview has issues with mockjs
@@ -105,20 +112,33 @@ export default {
         progress: percent => f.progress = percent,
         chunkSize: this.chunkSize,
         name: this.filename,
-        stsUrl: this.stsUrl
+        stsUrl: this.stsUrl,
+        url: this.uploadUrl
       }).then(data => {
         f.url = data.url.split('?', 2)[0];
         f.percent = 100;
         f.done = true;
         f.path = data.path
+        f.uploading = false
+        this.onUploaded(f)
         this.emitChangeFiles();
       }).catch(error => {
         f.error = true;
         f.errorMsg = error.message;
+        f.uploading = false
       });
     },
     emitChangeFiles() {
       this.$emit('input', this.resolveUploadFiles(this.files));
+      if (this.files.length < 1) {
+        this.clearFiles()
+      }
+    },
+    onUploaded(file) {
+      this.$emit('uploaded', file);
+    },
+    clearFiles() {
+      this.uploadInput.value = ''
     },
     getUploadValidator() {
       if (this.uploadValidator) {
@@ -149,6 +169,15 @@ export default {
 
       return this.value.map(v => this.processFile(v))
     },
+    isImageFile(filename) {
+      let partials = filename.split('.');
+
+      let ext = partials[partials.length - 1];
+
+      return this.imageExts.filter(e => {
+        return e.toLowerCase() === ext.toLowerCase()
+      }).length > 0
+    },
   },
   computed: {
     uploadInput() {
@@ -157,7 +186,7 @@ export default {
         this.fileEl.type = 'file';
         this.fileEl.multiple = this.multifile;
         this.fileEl.accept = this.accept;
-        // document.body.appendChild(this.fileEl);
+        //document.body.appendChild(this.fileEl);
       }
 
       return this.fileEl;
@@ -175,6 +204,16 @@ export default {
     return {
       fileEl        : null,
       files         : [],
+      file: { //current file
+        progress: 0,
+        url     : null,
+        error   : false,
+        errorMsg: '',
+        done    : false,
+        uploading: false,
+        valid: false,
+      },
+      imageExts: ['png', 'jpg', 'jpeg', 'gif']
     };
   },
   mounted() {

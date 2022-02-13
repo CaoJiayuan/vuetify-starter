@@ -72,6 +72,7 @@ export default {
       })
     },
     reset() {
+      this.posting = false
       this.$refs.form.reset()
       this.$refs.form.resetValidation()
     }

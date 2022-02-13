@@ -75,7 +75,7 @@ export default {
         'zip-1',
         'zip'
       ],
-      fileIconsDir  : '/static/images/filetypes/'
+      fileIconsDir  : '/images/filetypes/'
     }
   }
 }
