@@ -59,7 +59,10 @@ export default {
               this.$toast(this.successMessage)
             }
             this.$emit('submitted', this.value, res)
-            resolve(res)
+            return resolve(res)
+          }).catch(err => {
+            this.posting = false
+            return reject(err)
           })
         } else {
           this.posting = false

@@ -22,7 +22,7 @@
         <v-card-actions slot="action">
           <div class="mt-4">
             <v-btn color="primary" :loading="posting" :disabled="posting" class="mr-4" @click="submit()">提交</v-btn>
-            <v-btn @click="cancel"  :disabled="posting">取消</v-btn>
+            <v-btn @click="cancel">取消</v-btn>
           </div>
         </v-card-actions>
       </data-form>
