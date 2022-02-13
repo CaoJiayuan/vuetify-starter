@@ -7,9 +7,13 @@
         <v-btn @click="exc">ex</v-btn>
         <v-btn @click="upload">Upload attachments</v-btn>
         <v-btn @click="$toast('hhh')">toast</v-btn>
-        <date-picker label="DatePicker" v-model="date"></date-picker>
-        <time-picker label="TimePicker" v-model="time"/>
-        <quill v-model="text"/>
+
+        <data-form v-model="formData" url="users">
+          <v-text-field v-model="formData.name" :rules="rules.name" label="Name"></v-text-field>
+          <date-picker :rules="rules.name" label="DatePicker" v-model="formData.date"></date-picker>
+          <time-picker label="TimePicker" v-model="formData.time"/>
+          <quill v-model="formData.text"/>
+        </data-form>
       </v-container>
     </v-card>
     <br>
@@ -17,7 +21,8 @@
       <v-toolbar flat >
         <span class="text-h5">Users datatable</span>
         <v-spacer></v-spacer>
-        <v-btn color="primary">
+
+        <v-btn color="primary" @click="dialog = true">
           <v-icon>mdi-plus</v-icon>
           添加
         </v-btn>
@@ -35,11 +40,23 @@
     </data-table>
       </v-container>
     </v-card>
+    <dialog-form v-model="formData" max-width="800px" :dialog.sync="dialog" url="users">
+      <v-text-field :rules="rules.name" label="Name" v-model="formData.name"></v-text-field>
+    </dialog-form>
   </v-container>
 </template>
 
 <script>
-  import {Quill, DataTable, TimePicker, DatePicker, renderException} from "@/lib";
+  import {Quill, DataTable, TimePicker, DatePicker, renderException, DataForm} from "@/lib";
+  import DialogForm from "@/lib/components/form/DialogForm";
+  const rules = {
+    name : [
+        v => !!v || 'name is required'
+    ],
+    text: [
+      v => !!v || 'text is required'
+    ]
+  }
 
   export default {
     name: 'Home',
@@ -77,10 +94,15 @@
             }
           }
         ],
-        selected: {}
+        selected: {},
+        dialog: false,
+        formData: {},
+        rules
       }
     },
     components: {
+      DialogForm,
+      DataForm,
       DataTable,
       TimePicker,
       Quill,

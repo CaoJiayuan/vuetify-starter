@@ -16,6 +16,7 @@
           prepend-icon="mdi-calendar"
           clearable
           :label="label"
+          :rules="rules"
       ></v-text-field>
     </template>
 
@@ -31,7 +32,8 @@ export default {
     value : {
       type: [String, Date]
     },
-    label: String
+    label: String,
+    rules: Array
   },
   data() {
     return {}

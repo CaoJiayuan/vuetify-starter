@@ -7,6 +7,7 @@ import {toast} from "./components/toast"
 import DataTable from "./components/dataTable"
 import Quill from "./components/editor/quill/index.vue"
 import DatePicker from "./components/datePicker/Index";
+import DataForm from "./components/form/Index";
 import TimePicker from "./components/datePicker/time/timePicker";
 import {renderException} from "./components/exception";
 
@@ -18,4 +19,4 @@ export function setup(vueApp) {
     Vue.use(Toast)
 }
 
-export {vuetify, Attachment, Confirm, DataTable, Quill, TimePicker, DatePicker, renderException, toast}
+export {vuetify, Attachment, Confirm, DataTable, Quill, TimePicker, DatePicker, renderException, toast, DataForm}

@@ -5,7 +5,7 @@ export default {
     Vue.prototype.$theme = new Vue({
       computed:{
         color(){
-          return 'orange darken-3'
+          return '#ff6000'
         },
         dark(){
           return this.theme.dark
