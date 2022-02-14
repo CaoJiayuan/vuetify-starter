@@ -1,5 +1,5 @@
 <template>
-  <quill-editor ref="editor" v-model="contentValue"  :options="editor.options">
+  <quill-editor ref="editor" v-model="contentValue"  :options="options">
     <div slot="toolbar" :id="editorToolbar">
       <span class="ql-formats">
         <select class="ql-header">
@@ -83,6 +83,12 @@
   import { functions } from 'nerio-js-utils'
   import {quillEditor} from 'vue-quill-editor/src'
   const {fastRandom} = functions
+  const Quill = window.Quill
+  import ImageResize from "./quill-image-resize/src/ImageResize";
+  const SizeStyle = Quill.import('attributors/style/size');
+  SizeStyle.whitelist = ['8px', '10px', '12px', '14px', '16px', '18px', '20px', '22px', 'large', 'small', 'huge'];
+  Quill.register('modules/imageResize', ImageResize);
+  Quill.register(SizeStyle, true);
   export default {
     name      : 'quill',
     props     : {
@@ -99,6 +105,7 @@
         imgProgress: -1,
       };
     },
+    mixins: [],
     components: {quillEditor},
     methods   : {
       imgHandler (state) {
@@ -122,12 +129,13 @@
               }
               return true;
             },
-            stsUrl: '/oss/sts',
+            stsUrl: process.env.VUE_APP_OSS_STS_URL || '/oss/sts',
             progress: percent => {
               console.log(this.imgProgress = percent)
             },
             chunk: true,
-            chunkSize: 256 * UploadFile.KB
+            chunkSize: 256 * UploadFile.KB,
+            url: process.env.VUE_APP_UPLOAD_URL || '/upload'
           }).then(file => {
             let url = file.url.split('?', 2)[0]
             if (this.quill) {
@@ -167,6 +175,17 @@
       },
       editorToolbar(){
         return 'editor-toolbar-' + fastRandom()
+      },
+      options() {
+        return {
+          modules    : {
+            toolbar    : '#' + this.editorToolbar,
+            imageResize: {
+              modules: ['Resize', 'DisplaySize']
+            }
+          },
+          placeholder: '请输入内容'
+        };
       }
     },
   };

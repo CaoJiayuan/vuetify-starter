@@ -13,7 +13,7 @@ export default {
     },
     stsUrl      : {
       type   : String,
-      default: '/oss/sts'
+      default: process.env.VUE_APP_OSS_STS_URL || '/oss/sts'
     },
     uploadDriver   : {
       type   : String,

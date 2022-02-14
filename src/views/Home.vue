@@ -9,10 +9,11 @@
         <v-btn @click="$toast('hhh')">toast</v-btn>
 
         <data-form @submitted="submitted" v-model="formData" url="users">
-          <v-text-field v-model="formData.name" :rules="rules.name" label="Name"></v-text-field>
-          <date-picker :rules="rules.name" label="DatePicker" v-model="formData.date"></date-picker>
+          <v-text-field v-model="formData.name" label="Name"></v-text-field>
+          <date-picker label="DatePicker" v-model="formData.date"></date-picker>
           <time-picker label="TimePicker" v-model="formData.time"/>
           <file-uploader chunk label="上传文件" v-model="formData.fileurl" />
+          <data-selector max-length="3" label="Selecter" v-model="formData.tags" url="/lists"/>
           <quill v-model="formData.text"/>
         </data-form>
       </v-container>
@@ -48,7 +49,7 @@
 </template>
 
 <script>
-  import {Quill, DataTable, TimePicker, DatePicker, renderException, DataForm} from "@/lib";
+  import {Quill, DataTable, TimePicker, DatePicker, renderException, DataForm, DataSelector} from "@/lib";
   import DialogForm from "@/lib/components/form/DialogForm";
   import FileUploader from "@/lib/components/uploader/file";
   const rules = {
@@ -98,11 +99,15 @@
         ],
         selected: {},
         dialog: false,
-        formData: {},
+        formData: {
+          tags: [],
+          tag: null
+        },
         rules
       }
     },
     components: {
+      DataSelector,
       FileUploader,
       DialogForm,
       DataForm,

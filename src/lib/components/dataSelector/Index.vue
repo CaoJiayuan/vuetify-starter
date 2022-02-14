@@ -9,11 +9,44 @@
     :no-data-text="noDataText"
     @change="onChange"
     clearable
+    :multiple="multiple"
   >
+    <template v-slot:prepend-item v-if="multiple">
+      <v-list-item
+          ripple
+          @mousedown.prevent
+          @click="toggle"
+      >
+        <v-list-item-action>
+          <v-icon :color="selected.length > 0 ? 'indigo darken-4' : ''">
+            {{ icon }}
+          </v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>
+            选择全部 <template v-if="selected.length > 0">（共选择{{selected.length}}个）</template>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider class="mt-2"></v-divider>
+    </template>
+    <template v-slot:selection="{ item, index}">
+
+      <span
+          v-if="maxLength > 0 && index == maxLength"
+          class="grey--text text-caption"
+      >
+        (以及另外{{ selected.length - maxLength }}个)
+      </span>
+      <v-chip v-if="!hitMax(index)" small>
+        <span>{{ item[itemText] }}</span>
+      </v-chip>
+    </template>
   </v-select>
 </template>
 
 <script>
+  const axios = window.axios
   export default {
     name      : 'data-selector',
     props     : {
@@ -22,7 +55,7 @@
         default: null
       },
       value       : {
-        type   : String | Number,
+        type   : [String, Number, Array],
         default: null
       },
       autocomplete: {
@@ -48,15 +81,16 @@
       data: {
         type: Array,
         default : () => []
-      }
+      },
+      maxLength: [Number, String]
     },
     model     : {
-      prop : 'value',
-      event: 'change'
+      prop : 'value'
     },
     data() {
       return {
         items: [],
+        multiple: false
       };
     },
     computed  : {
@@ -65,10 +99,21 @@
           return this.value
         },
         set(item) {
-          this.$emit('change', item !== null ? item: null);
+          //this.$emit('change', item !== null ? item: null);
           this.$emit('input', item);
         }
-      }
+      },
+      selectedAll() {
+        return this.selected.length === this.items.length
+      },
+      selectedSome() {
+        return this.selected.length > 0 && !this.selectedAll
+      },
+      icon () {
+        if (this.selectedAll) return 'mdi-close-box'
+        if (this.selectedSome) return 'mdi-minus-box'
+        return 'mdi-checkbox-blank-outline'
+      },
     },
     methods   : {
       load() {
@@ -81,11 +126,26 @@
           return this.items;
         });
       },
+      toggle () {
+        if (this.selectedAll) {
+          this.selected = []
+        } else {
+          this.selected = this.items.map(item => item[this.itemValue])
+        }
+      },
       onChange(v){
 
+      },
+      hitMax(index) {
+        if (this.maxLength > 0) {
+          return index + 1 > this.maxLength
+        }
+
+        return false
       }
     },
     mounted() {
+      this.multiple = Array.isArray(this.value)
       this.load().then(items => {
 
       });

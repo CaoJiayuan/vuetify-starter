@@ -42,6 +42,17 @@ Mock.mock(url('/attachments/batch'), options => {
   ]
 })
 
+Mock.mock(url('/lists'),  options =>{
+  return Mock.mock({
+    'data|10': [
+      {
+        'id|+1': 1,
+        'name': () => Mock.Random.name()
+      }
+    ]
+  })['data']
+})
+
 Mock.mock(url('/user'), {
   name: Mock.Random.cname(),
   avatar: 'https://picsum.photos/300/300?random',

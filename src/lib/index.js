@@ -5,6 +5,7 @@ import Confirm from "./components/confirm"
 import Toast from "./components/toast"
 import {toast} from "./components/toast"
 import DataTable from "./components/dataTable"
+import DataSelector from "./components/dataSelector/Index"
 import Quill from "./components/editor/quill/index.vue"
 import DatePicker from "./components/datePicker/Index";
 import DataForm from "./components/form/Index";
@@ -23,4 +24,4 @@ export function setup(vueApp) {
 
 export {vuetify, Attachment, Confirm, DataTable,
     Quill, TimePicker, DatePicker, renderException, toast,
-    DataForm, DialogForm, FileUploader}
+    DataForm, DialogForm, FileUploader, DataSelector}
