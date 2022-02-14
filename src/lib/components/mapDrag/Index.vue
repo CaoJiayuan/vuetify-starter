@@ -10,145 +10,185 @@
 </template>
 
 <script>
-  import remoteLoad from './utils/remoteLoad.js'
-  import { MapKey, MapCityName } from './config/config'
-  export default {
-    props: ['lat', 'lng'],
-    data () {
-      return {
-        searchKey: '',
-        placeSearch: null,
-        dragStatus: false,
-        AMapUI: null,
-        AMap: null,
-        mapObject: null
-      }
-    },
-    watch: {
-      searchKey () {
-        if (this.searchKey === '') {
-          this.placeSearch.clear()
-        }
-      }
-    },
-    methods: {
-      // 搜索
-      handleSearch () {
-        if (this.searchKey) {
-          this.placeSearch.search(this.searchKey)
-        }
-      },
-      // 实例化地图
-      initMap () {
-        // 加载PositionPicker，loadUI的路径参数为模块名中 'ui/' 之后的部分
-        let AMapUI = this.AMapUI = window.AMapUI
-        let AMap = this.AMap = window.AMap
-        AMapUI.loadUI(['misc/PositionPicker'], PositionPicker => {
-          let mapConfig = {
-            zoom: 16,
-            cityName: MapCityName
-          }
-          if (this.lat && this.lng) {
-            mapConfig.center = [this.lng, this.lat]
-          }
-          let map = new AMap.Map('js-container', mapConfig)
-          this.mapObject = map
-          // 加载地图搜索插件
-          AMap.service('AMap.PlaceSearch', () => {
-            this.placeSearch = new AMap.PlaceSearch({
-              pageSize: 5,
-              pageIndex: 1,
-              citylimit: false,
-              city: MapCityName,
-              map: map,
-              panel: 'js-result'
-            })
-            let _this = this;
-            this.placeSearch.on('complete', function (SearchResult) {
-              let poi = SearchResult.poiList.pois[0];
-              _this.dragStatus = false;
-              let position = {
-                'address':poi.pname+poi.cityname+poi.adname+poi.address,
-                'lat':poi.location.lat,
-                'lng':poi.location.lng,
-                'city':poi.cityname,
-                'province':poi.pname,
-                'district':poi.adname,
-                'phone':poi.tel,
-              };
-              _this.$emit('drag', position)
-            })
-            this.placeSearch.on('listElementClick', function (SelectChangeEvent) {
-              let poi = SelectChangeEvent.data;
-              _this.dragStatus = false;
-              let position = {
-                'address':poi.pname+poi.cityname+poi.adname+poi.address,
-                'lat':poi.location.lat,
-                'lng':poi.location.lng,
-                'city':poi.cityname,
-                'province':poi.pname,
-                'district':poi.adname,
-                'phone':poi.tel,
-              };
-              _this.$emit('drag', position)
-            })
-          })
-          // 启用工具条
-          AMap.plugin(['AMap.ToolBar'], function () {
-            map.addControl(new AMap.ToolBar({
-              position: 'RB'
-            }))
-          })
-          // 创建地图拖拽
-          let positionPicker = new PositionPicker({
-            mode: 'dragMap', // 设定为拖拽地图模式，可选'dragMap'、'dragMarker'，默认为'dragMap'
-            map: map // 依赖地图对象
-          })
-          // 拖拽完成发送自定义 drag 事件
-          positionPicker.on('success', positionResult => {
-            // 过滤掉初始化地图后的第一次默认拖放
-            if (!this.dragStatus) {
-              this.dragStatus = true;
-            } else {
-              let position = {
-                'address':positionResult.address,
-                'lat':positionResult.position.lat,
-                'lng':positionResult.position.lng,
-                'city':positionResult.regeocode.addressComponent.city,
-                'province':positionResult.regeocode.addressComponent.province,
-                'district':positionResult.regeocode.addressComponent.district,
-                'phone':'',
-              };
-              this.$emit('drag', position)
-            }
-          })
-          // 启动拖放
-          positionPicker.start()
-        })
-      },
-      panTo(lat, lng) {
-        this.mapObject && this.mapObject.panTo([lng, lat])
-      }
-    },
-    async created () {
-      // 已载入高德地图API，则直接初始化地图
-      if (window.AMap && window.AMapUI) {
-        this.initMap()
-        // 未载入高德地图API，则先载入API再初始化
-      } else {
-        await remoteLoad(`http://webapi.amap.com/maps?v=1.4.15&key=${MapKey}`)
-        await remoteLoad('http://webapi.amap.com/ui/1.0/main.js')
-        this.initMap()
+import remoteLoad from './utils/remoteLoad.js'
+import { MapKey, MapCityName } from './config/config'
+export default {
+  props: ['lat', 'lng'],
+  data () {
+    return {
+      searchKey: '',
+      placeSearch: null,
+      dragStatus: false,
+      AMapUI: null,
+      AMap: null,
+      mapObject: null
+    }
+  },
+  watch: {
+    searchKey () {
+      if (this.searchKey === '') {
+        this.placeSearch.clear()
       }
     }
+  },
+  methods: {
+    // 搜索
+    handleSearch () {
+      if (this.searchKey) {
+        this.placeSearch.search(this.searchKey)
+      }
+    },
+    // 实例化地图
+    initMap () {
+      // 加载PositionPicker，loadUI的路径参数为模块名中 'ui/' 之后的部分
+      let AMapUI = this.AMapUI = window.AMapUI
+      let AMap = this.AMap = window.AMap
+      AMapUI.loadUI(['misc/PositionPicker'], PositionPicker => {
+        let mapConfig = {
+          zoom: 16,
+          cityName: MapCityName
+        }
+        if (this.lat && this.lng) {
+          mapConfig.center = [this.lng, this.lat]
+        }
+        let map = new AMap.Map('js-container', mapConfig)
+        this.mapObject = map
+        // 加载地图搜索插件
+        AMap.service('AMap.PlaceSearch', () => {
+          this.placeSearch = new AMap.PlaceSearch({
+            pageSize: 5,
+            pageIndex: 1,
+            citylimit: false,
+            city: MapCityName,
+            map: map,
+            panel: 'js-result'
+          })
+          let _this = this;
+          this.placeSearch.on('complete', function (SearchResult) {
+            let poi = SearchResult.poiList.pois[0];
+            _this.dragStatus = false;
+            if (poi) {
+              let position = {
+                'address':poi.pname+poi.cityname+poi.adname+poi.address,
+                'lat':poi.location.lat,
+                'lng':poi.location.lng,
+                'city':poi.cityname,
+                'province':poi.pname,
+                'district':poi.adname,
+                'phone':poi.tel,
+              };
+              _this.$emit('drag', position)
+            }
+          })
+          this.placeSearch.on('listElementClick', function (SelectChangeEvent) {
+            let poi = SelectChangeEvent.data;
+            _this.dragStatus = false;
+            let position = {
+              'address':poi.pname+poi.cityname+poi.adname+poi.address,
+              'lat':poi.location.lat,
+              'lng':poi.location.lng,
+              'city':poi.cityname,
+              'province':poi.pname,
+              'district':poi.adname,
+              'phone':poi.tel,
+            };
+            _this.$emit('drag', position)
+          })
+        })
+        // 启用工具条
+        AMap.plugin(['AMap.ToolBar'], function () {
+          map.addControl(new AMap.ToolBar({
+            position: 'RB'
+          }))
+        })
+        // 创建地图拖拽
+        let positionPicker = new PositionPicker({
+          mode: 'dragMap', // 设定为拖拽地图模式，可选'dragMap'、'dragMarker'，默认为'dragMap'
+          map: map // 依赖地图对象
+        })
+        // 拖拽完成发送自定义 drag 事件
+        positionPicker.on('success', positionResult => {
+          // 过滤掉初始化地图后的第一次默认拖放
+          if (!this.dragStatus) {
+            this.dragStatus = true;
+          } else {
+            let position = {
+              'address':positionResult.address,
+              'lat':positionResult.position.lat,
+              'lng':positionResult.position.lng,
+              'city':positionResult.regeocode.addressComponent.city,
+              'province':positionResult.regeocode.addressComponent.province,
+              'district':positionResult.regeocode.addressComponent.district,
+              'phone':'',
+            };
+            this.$emit('drag', position)
+          }
+        })
+        // 启动拖放
+        positionPicker.start()
+      })
+    },
+    panTo(lat, lng) {
+      this.mapObject && this.mapObject.panTo([lng, lat])
+    }
+  },
+  async created () {
+    // 已载入高德地图API，则直接初始化地图
+    if (window.AMap && window.AMapUI) {
+      this.initMap()
+      // 未载入高德地图API，则先载入API再初始化
+    } else {
+      await remoteLoad(`http://webapi.amap.com/maps?v=1.4.15&key=${MapKey}`)
+      await remoteLoad('http://webapi.amap.com/ui/1.0/main.js')
+      this.initMap()
+    }
   }
+}
 </script>
 
-<style lang="css">
-  .m-map{ min-width: 500px; min-height: 300px; position: relative; }
-  .m-map .map{ width: 100%; height: 400px; }
-  .m-map .search{ position: absolute; top: 10px; left: 10px; width: 285px; z-index: 1; }
-  .m-map .search input{ width: 180px; border: 1px solid #ccc; line-height: 20px; padding: 5px; outline: none; background-color: #fff}
-  .m-map .search button{ line-height: 26px; background: #fff; border: 1px solid #ccc; width: 50px; text-align: center; }
-  .m-map .result{ max-height: 300px; overflow: auto; margin-top: 10px; }
+<style lang="scss">
+.m-map {
+  min-width: 500px;
+  min-height: 300px;
+  position: relative;
+  margin: 6px 0;
+
+  .map {
+    width: 100%;
+    height: 400px;
+  }
+
+  .search {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 285px;
+    z-index: 1;
+
+    input {
+      width: 180px;
+      border: 1px solid #ccc;
+      line-height: 20px;
+      padding: 5px;
+      outline: none;
+      background-color: #fff
+    }
+
+    button {
+      line-height: 32px;
+      background: #fff;
+      border: 1px solid #ccc;
+      width: 64px;
+      height: 32px;
+      text-align: center;
+      margin-left: 6px;
+    }
+  }
+
+  .result {
+    max-height: 300px;
+    overflow: auto;
+    margin-top: 10px;
+  }
+}
 </style>

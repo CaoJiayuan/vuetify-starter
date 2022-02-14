@@ -11,6 +11,7 @@ import DatePicker from "./components/datePicker/Index";
 import DataForm from "./components/form/Index";
 import FileUploader from "./components/uploader/file";
 import DialogForm from "./components/form/DialogForm";
+import AMap from "./components/mapDrag/Index";
 import TimePicker from "./components/datePicker/time/timePicker";
 import {renderException} from "./components/exception";
 
@@ -24,4 +25,4 @@ export function setup(vueApp) {
 
 export {vuetify, Attachment, Confirm, DataTable,
     Quill, TimePicker, DatePicker, renderException, toast,
-    DataForm, DialogForm, FileUploader, DataSelector}
+    DataForm, DialogForm, FileUploader, DataSelector, AMap}

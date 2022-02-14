@@ -84,11 +84,9 @@
   import {quillEditor} from 'vue-quill-editor/src'
   const {fastRandom} = functions
   const Quill = window.Quill
-  import ImageResize from "./quill-image-resize/src/ImageResize";
   const SizeStyle = Quill.import('attributors/style/size');
   SizeStyle.whitelist = ['8px', '10px', '12px', '14px', '16px', '18px', '20px', '22px', 'large', 'small', 'huge'];
-  Quill.register('modules/imageResize', ImageResize);
-  Quill.register(SizeStyle, true);
+
   export default {
     name      : 'quill',
     props     : {
@@ -179,10 +177,7 @@
       options() {
         return {
           modules    : {
-            toolbar    : '#' + this.editorToolbar,
-            imageResize: {
-              modules: ['Resize', 'DisplaySize']
-            }
+            toolbar    : '#' + this.editorToolbar
           },
           placeholder: '请输入内容'
         };

@@ -15,6 +15,7 @@
           <file-uploader chunk label="上传文件" v-model="formData.fileurl" />
           <data-selector max-length="3" label="Selecter" v-model="formData.tags" url="/lists"/>
           <quill v-model="formData.text"/>
+          <a-map @drag="mapDrag"/>
         </data-form>
       </v-container>
     </v-card>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-  import {Quill, DataTable, TimePicker, DatePicker, renderException, DataForm, DataSelector} from "@/lib";
+  import {Quill, DataTable, TimePicker, DatePicker, renderException, DataForm, DataSelector, AMap} from "@/lib";
   import DialogForm from "@/lib/components/form/DialogForm";
   import FileUploader from "@/lib/components/uploader/file";
   const rules = {
@@ -114,7 +115,8 @@
       DataTable,
       TimePicker,
       Quill,
-      DatePicker
+      DatePicker,
+      AMap
     },
     methods: {
       exc() {
@@ -138,6 +140,9 @@
       },
       submitted(data) {
         console.log(this.formData)
+      },
+      mapDrag(pos) {
+        console.log(pos)
       }
     }
   }
