@@ -168,7 +168,8 @@ export default {
     },
     render(h) {
         let columns = {}
-        for (let header of this.validHeaders) {
+        for (let i =0; i < this.validHeaders.length; i++) {
+            let header = this.validHeaders[i]
             columns[`item.${header.value}`] = ({item, index, value}) => {
                 let idx = index + 1 + (this.currentPage - 1) * this.pageSize
                 return this.renderColumn(header, h, {
