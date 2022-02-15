@@ -3,8 +3,8 @@
     <slot></slot>
     <slot name="action">
       <div class="mt-4">
-        <v-btn :loading="posting" :disabled="posting" color="primary" class="mr-4" @click="submit">提交</v-btn>
-        <v-btn @click="reset" :disabled="posting">清除</v-btn>
+        <v-btn :loading="posting" :disabled="posting" color="primary" class="mr-4" @click="submit">{{ submitText }}</v-btn>
+        <v-btn @click="reset" :disabled="posting" v-if="clearable">{{ clearText }}</v-btn>
       </div>
     </slot>
   </v-form>
@@ -28,6 +28,18 @@ export default {
     successMessage: {
       type: String,
       default: () => '保存成功'
+    },
+    submitText: {
+      type: String,
+      default: () => '提交'
+    },
+    clearText: {
+      type: String,
+      default: () => '清除'
+    },
+    clearable: {
+      type: Boolean,
+      default: () => false
     }
   },
   data() {

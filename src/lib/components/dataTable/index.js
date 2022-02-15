@@ -1,7 +1,7 @@
 import pagination from '../../mixins/pagination';
 import './datatable.scss'
 import {functions} from "nerio-js-utils";
-const {standby} = functions
+const {standby, useAsFunction} = functions
 export default {
     name: 'data-table',
     props: {
@@ -45,6 +45,12 @@ export default {
                     align: this.actionsAlign,
                     render:(h, {item}) => {
                         let btns = this.actions.map(act => {
+                            if (act.granted !== undefined) {
+                                if (!useAsFunction(act.granted)(item)) {
+                                    return undefined
+                                }
+                            }
+
                             let renderer = act.render || ((h, act) => {
                                 let ps = Object.assign({
                                     color: act.color || 'primary'
@@ -63,7 +69,14 @@ export default {
                             })
 
                             return renderer(h, act)
-                        })
+                        }).filter(v => v !== undefined)
+                        if (btns.length === 0) {
+                            btns = [h('span', {
+                                style: {
+                                    color: 'gray'
+                                }
+                            }, '无操作权限')]
+                        }
 
                         return h('div', {
                             class: 'app-data-table-actions'
@@ -202,7 +215,10 @@ export default {
                 singleExpand: true,
                 singleSelect: !this.multiple,
                 showSelect: this.selectable,
-                value: this.multiple ? this.value : [this.value]
+                value: this.multiple ? this.value : [this.value],
+                footerProps: {
+                    itemsPerPageOptions: [5, 10, 15, 20, 30, 50]
+                }
             },
             scopedSlots: {
                 ...columns,

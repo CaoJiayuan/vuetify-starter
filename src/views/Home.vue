@@ -86,7 +86,8 @@
             text: '编辑',
             props: {
               small: true,
-            }
+            },
+            granted: item => item.id % 4 === 0,
           },
           {
             action: 'delete',
@@ -95,6 +96,16 @@
               small: true,
               color: 'red',
               dark: true
+            },
+            granted: item => item.id % 3 === 0,
+          },
+          {
+            action: 'grant',
+            text: '授权的操作',
+            granted: item => item.id % 2 === 1,
+            props: {
+              small: true,
+              color: 'white'
             }
           }
         ],
