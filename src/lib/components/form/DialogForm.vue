@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="visible" v-bind="$attrs" persistent>
+  <v-dialog v-model="visible" v-bind="$attrs" persistent scrollable>
     <template #activator="props">
       <slot name="activator" v-bind:props="props"></slot>
     </template>
@@ -15,17 +15,23 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
-      <data-form @posting="postingData" @submitted="submitted" v-model="formData" ref="form" :url="url">
-        <v-container>
-          <slot></slot>
-        </v-container>
-        <v-card-actions slot="action">
-          <div class="mt-4">
-            <v-btn color="primary" :loading="posting" :disabled="posting" class="mr-4" @click="submit()">提交</v-btn>
-            <v-btn @click="cancel">取消</v-btn>
+      <v-card-text>
+        <data-form @posting="postingData" @submitted="submitted" v-model="formData" ref="form" :url="url">
+          <v-container>
+            <slot></slot>
+          </v-container>
+          <div slot="action">
+
           </div>
-        </v-card-actions>
-      </data-form>
+        </data-form>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions >
+        <div class="mt-4">
+          <v-btn color="primary" :loading="posting" :disabled="posting" class="mr-4" @click="submit()">提交</v-btn>
+          <v-btn @click="cancel">取消</v-btn>
+        </div>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
