@@ -2,6 +2,7 @@ import pagination from '../../mixins/pagination';
 import './datatable.scss'
 import {functions} from "nerio-js-utils";
 const {standby, useAsFunction} = functions
+const _ = window._
 export default {
     name: 'data-table',
     props: {
@@ -186,7 +187,7 @@ export default {
             columns[`item.${header.value}`] = ({item, index, value}) => {
                 let idx = index + 1 + (this.currentPage - 1) * this.pageSize
                 return this.renderColumn(header, h, {
-                    item,
+                    item: _.clone(item),
                     value,
                     key: header.value,
                     index: idx

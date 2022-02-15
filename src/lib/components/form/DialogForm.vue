@@ -75,8 +75,8 @@ export default {
   },
   methods: {
     cancel() {
+      //this.$refs.form.reset()
       this.visible = false
-      this.$refs.form.reset()
     },
     submit() {
       this.$refs.form.submit()
