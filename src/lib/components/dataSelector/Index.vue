@@ -9,6 +9,7 @@
     :no-data-text="noDataText"
     @change="onChange"
     clearable
+    :prepend-icon="prependIcon"
     :multiple="multiple"
   >
     <template v-slot:prepend-item v-if="multiple">
@@ -82,7 +83,8 @@
         type: Array,
         default : () => []
       },
-      maxLength: [Number, String]
+      maxLength: [Number, String],
+      prependIcon: String
     },
     model     : {
       prop : 'value'

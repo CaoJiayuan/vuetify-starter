@@ -9,6 +9,14 @@ Mock.XHR.prototype.upload = xhr.upload
 Mock.setup({
   timeout: '200-600'
 })
+
+function proxy(options, fn) {
+  console.log('==>request', options)
+  let resp = fn(options)
+  console.log('==>response', resp)
+  return resp
+}
+
 Mock.mock(url('/users'), options => {
   return paginator({
     name : () => Mock.Random.name(),
@@ -58,13 +66,15 @@ Mock.mock(url('/user'), {
   avatar: 'https://picsum.photos/300/300?random',
   email: () => Mock.Random.email()
 })
-Mock.mock(url('/attachments'), options =>{
-  let data = paginator({
-    url : () => imageUrl(),
-    type: 'image/jpeg',
-    filename: () => Mock.Random.name(),
-  }, options);
-  return data
+Mock.mock(url('/attachments'), options => {
+  return proxy(options, options =>{
+    let data = paginator({
+      url : () => imageUrl(),
+      type: 'image/jpeg',
+      filename: () => Mock.Random.name(),
+    }, options);
+    return data
+  })
 })
 
 function paginator(templateItem, options, total = 100) {

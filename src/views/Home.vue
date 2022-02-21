@@ -32,7 +32,7 @@
       </v-toolbar>
       <v-divider></v-divider>
       <v-container>
-        <data-table @edit="edit" searchable expanded-class="exp-user" @add="tableAdd" :headers="tableHeaders" :actions="tableActions" api-url="/users" selectable v-model="selected">
+        <data-table @name="$toast" @edit="edit" searchable expanded-class="exp-user" @add="tableAdd" :headers="tableHeaders" :actions="tableActions" api-url="/users" selectable v-model="selected">
       <template #expanded="{item}">
         <div>{{item.name}}</div>
       </template>
@@ -120,7 +120,17 @@
         tableHeaders: [
           {
             text: "Name",
-            value: 'name'
+            value: 'name',
+            render: (h, {value, emit}) => {
+              return h('v-btn', {
+                on: {
+                  click: () => {
+                    console.log(emit)
+                    emit('name', value)
+                  }
+                }
+              }, value)
+            }
           },
           {
             text: "Created at",
@@ -135,7 +145,7 @@
             props: {
               small: true,
             },
-            granted: item => item.id % 4 === 0,
+            granted: ({item}) => item.id % 4 === 0,
           },
           {
             action: 'delete',
@@ -145,12 +155,12 @@
               color: 'red',
               dark: true
             },
-            granted: item => item.id % 3 === 0,
+            granted: ({item}) => item.id % 3 === 0,
           },
           {
             action: 'grant',
             text: '授权的操作',
-            granted: item => item.id % 2 === 1,
+            granted: ({item}) => item.id % 2 === 1,
             props: {
               small: true,
               color: 'white'
@@ -186,7 +196,9 @@
         })
       },
       upload() {
-        this.$attachment(console.log, {
+        this.$attachment(f => {
+          console.log('attachment', f)
+        }, {
           single: true
         })
       },

@@ -7,15 +7,21 @@ export default {
     queries: {
       type: Object,
       default: {}
+    },
+    autoload: {
+      type: Boolean,
+      default: () => true
     }
   },
   methods: {
-
+    loadList() {
+      this.apiUrl && this.load({
+        filters: this.queries
+      });
+    }
   },
   mounted(){
-    this.apiUrl && this.load({
-      filters: this.queries
-    });
+    this.loadList()
   },
   render(h) {
     let items

@@ -44,15 +44,15 @@ export default {
                     value: '_actions',
                     text: '操作',
                     align: this.actionsAlign,
-                    render:(h, {item}) => {
-                        let btns = this.actions.map(act => {
-                            if (act.granted !== undefined) {
-                                if (!useAsFunction(act.granted)(item)) {
+                    render:(h, value) => {
+                        let btns = this.actions.map(action => {
+                            if (action.granted !== undefined) {
+                                if (!useAsFunction(action.granted)(value)) {
                                     return undefined
                                 }
                             }
 
-                            let renderer = act.render || ((h, act) => {
+                            let renderer = action.render || ((h, act, {item}) => {
                                 let ps = Object.assign({
                                     color: act.color || 'primary'
                                 }, act.props || {})
@@ -69,7 +69,7 @@ export default {
                                 }, [icon, act.text])
                             })
 
-                            return renderer(h, act)
+                            return renderer(h, action, value)
                         }).filter(v => v !== undefined)
                         if (btns.length === 0) {
                             btns = [h('span', {
@@ -182,6 +182,10 @@ export default {
     },
     render(h) {
         let columns = {}
+        let emit = (ev, ...args) => {
+            this.$emit(ev, ...args)
+        }
+
         for (let i =0; i < this.validHeaders.length; i++) {
             let header = this.validHeaders[i]
             columns[`item.${header.value}`] = ({item, index, value}) => {
@@ -190,7 +194,8 @@ export default {
                     item: _.clone(item),
                     value,
                     key: header.value,
-                    index: idx
+                    index: idx,
+                    emit
                 })
             }
         }

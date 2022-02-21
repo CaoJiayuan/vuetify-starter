@@ -37,6 +37,11 @@ export default {
   methods : {
     show(){
       this.dialog = true
+      this.selected = []
+      this.files = []
+      this.$nextTick(() => {
+        this.$refs.list && this.$refs.list.loadList()
+      })
     },
     selectFile(file, selected) {
       if (selected) {
@@ -179,7 +184,8 @@ export default {
         props: {
           apiUrl: '/attachments',
           queries: this.filters
-        }
+        },
+        ref: 'list'
       })])
 
       return h('v-tab-item', {
@@ -244,7 +250,7 @@ export default {
                 params: this.params
               }).then(res => {
                 let files = res.data.map(item => self.processFile(item))
-                files = files.single ? files[0] : files
+                files = self.single ? files[0] : files
                 self.$emit('submit', files)
                 self.onSubmit(files)
               })
