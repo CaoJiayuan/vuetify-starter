@@ -18,11 +18,13 @@ function proxy(options, fn) {
 }
 
 Mock.mock(url('/users'), options => {
-  return paginator({
-    name : () => Mock.Random.name(),
-    avatar: () => imageUrl(),
-    created_at: () => Mock.Random.datetime()
-  }, options)
+  return proxy(options, options => {
+    return paginator({
+      name : () => Mock.Random.name(),
+      avatar: () => imageUrl(),
+      created_at: () => Mock.Random.datetime()
+    }, options)
+  })
 })
 
 Mock.mock(url('/logout'), options => {

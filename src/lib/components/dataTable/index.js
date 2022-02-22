@@ -154,15 +154,19 @@ export default {
                         }
                     },
                     props: {
-                        color: 'primary'
+                        color: 'primary',
+                        small: true
                     }
                 }, ['筛选']);
                 let clear = h('v-btn', {
                     on: {
                         click: () => {
                             this.tableFilters = {}
-                            this.refresh()
+                            this.filter(this.tableFilters)
                         }
+                    },
+                    props: {
+                        small: true
                     }
                 }, ['重置'])
                 let actions = h('v-col', {
@@ -174,7 +178,10 @@ export default {
                     }
                 }, [clear, filter])
                 return h('v-row', {
-                    class:   'app-data-table-filters'
+                    class:   'app-data-table-filters',
+                    props: {
+                        dense: true
+                    }
                 }, [this.$scopedSlots.filters(this.tableFilters), actions])
             }
             return undefined
@@ -283,5 +290,10 @@ export default {
     },
     mounted() {
         this.autoload && this.load({})
+    },
+    watch: {
+        apiUrl(now) {
+            now && this.refresh()
+        }
     }
 }
