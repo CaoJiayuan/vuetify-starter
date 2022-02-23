@@ -137,6 +137,11 @@
             value: 'created_at',
             align: 'right'
           },
+          {
+            text: "Header not show",
+            value: 'created_at',
+            show: false
+          },
         ],
         tableActions: [
           {

@@ -39,8 +39,17 @@ export default {
             return Array.isArray(this.value)
         },
         validHeaders() {
+            let headers = this.headers.filter(header => {
+                let show = header.show
+                if (show === undefined) {
+                    show = () => true
+                }
+
+                return useAsFunction(show)()
+            })
+
             if (this.actions) {
-                return [...this.headers, {
+                return [...headers, {
                     value: '_actions',
                     text: '操作',
                     align: this.actionsAlign,
@@ -85,7 +94,7 @@ export default {
                     }
                 }]
             }
-            return this.headers
+            return headers
         }
     },
     methods: {
