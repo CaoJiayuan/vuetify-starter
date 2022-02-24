@@ -32,7 +32,7 @@
       </v-toolbar>
       <v-divider></v-divider>
       <v-container>
-        <data-table @name="$toast" @edit="edit" searchable expanded-class="exp-user" @add="tableAdd" :headers="tableHeaders" :actions="tableActions" api-url="/users" selectable v-model="selected">
+        <data-table filter-key="ps" @name="$toast" @edit="edit" searchable expanded-class="exp-user" @add="tableAdd" :headers="tableHeaders" :actions="tableActions" api-url="/users" selectable v-model="selected">
       <template #expanded="{item}">
         <div>{{item.name}}</div>
       </template>

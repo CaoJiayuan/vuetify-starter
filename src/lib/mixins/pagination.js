@@ -13,6 +13,10 @@ export default {
         cacheExpire : {
             type:Number,
             default:() => 0
+        },
+        filterKey: {
+            type: String,
+            default: () => 'filters'
         }
     },
     data () {
@@ -54,7 +58,7 @@ export default {
             }
             params = Object.assign(params, extras);
 
-            filters = filters ? this.buildFilters(filters) : this.filters
+            filters = filters ? this.buildFilters(filters, this.filterKey) : this.filters
             return this.getData(this.apiUrl, Object.assign(params, filters), this.cacheExpire).then(response => {
                 let paginator = response.data
                 this.loading = false
