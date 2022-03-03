@@ -6,7 +6,7 @@
       <v-container>
         <v-btn @click="exc">ex</v-btn>
         <v-btn @click="upload">Upload attachments</v-btn>
-        <v-btn @click="$toast('hhh')">toast</v-btn>
+        <v-btn @click="$toast('information', 'success', {timeout: 5000})">toast</v-btn>
 
         <data-form @submitted="submitted" v-model="formData" url="users">
           <v-text-field v-model="formData.name" label="Name"></v-text-field>
@@ -32,76 +32,32 @@
       </v-toolbar>
       <v-divider></v-divider>
       <v-container>
-        <data-table filter-key="ps" @name="$toast" @edit="edit" searchable expanded-class="exp-user" @add="tableAdd" :headers="tableHeaders" :actions="tableActions" api-url="/users" selectable v-model="selected">
-      <template #expanded="{item}">
-        <div>{{item.name}}</div>
-      </template>
-      <template #filters="filters">
-        <v-col sm="3"><v-text-field v-model="filters.name" label="Name"></v-text-field></v-col>
-        <v-col sm="3"><date-picker v-model="filters['created_at,=']" label="Create Date"></date-picker></v-col>
-      </template>
-    </data-table>
+        <data-table filter-key="ps" @name="$toast" @edit="edit" expanded-class="exp-user" @add="tableAdd" :headers="tableHeaders" :actions="tableActions" api-url="/users" selectable v-model="selected">
+          <template #expanded="{item}">
+            <div>{{item.name}}</div>
+          </template>
+          <template #filters="filters">
+            <v-col sm="3"><v-text-field v-model="filters.name" label="Name"></v-text-field></v-col>
+            <v-col sm="3"><date-picker v-model="filters['created_at,=']" label="Create Date"></date-picker></v-col>
+          </template>
+          <template #tools="{selected}">
+            <v-btn outlined small color="red" text :disabled="selected.length == 0">批量删除({{selected.length}})</v-btn>
+          </template>
+        </data-table>
       </v-container>
     </v-card>
     <dialog-form v-model="formData" max-width="800px" :dialog.sync="dialog" url="users">
       <v-text-field :rules="rules.name" label="Name" v-model="formData.name"></v-text-field>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
     </dialog-form>
   </v-container>
 </template>
 
 <script>
-  import {Quill, DataTable, TimePicker, DatePicker, renderException, DataForm, DataSelector, AMap} from "@/lib";
-  import DialogForm from "@/lib/components/form/DialogForm";
-  import FileUploader from "@/lib/components/uploader/file";
-  const rules = {
+import {AMap, DataForm, DataSelector, DataTable, DatePicker, Quill, renderException, TimePicker} from "@/lib";
+import DialogForm from "@/lib/components/form/DialogForm";
+import FileUploader from "@/lib/components/uploader/file";
+
+const rules = {
     name : [
         v => !!v || 'name is required'
     ],
@@ -165,18 +121,19 @@
           {
             action: 'grant',
             text: '授权的操作',
-            granted: ({item}) => item.id % 2 === 1,
+            disabled: ({item}) => item.id % 2 === 1,
             props: {
               small: true,
               color: 'white'
             }
           }
         ],
-        selected: {},
+        selected: [],
         dialog: false,
         formData: {
           tags: [],
-          tag: null
+          tag: null,
+          fileurl: 'https://feast.oss-cn-shenzhen.aliyuncs.com/uploads/2022-02-23/45cfb9a8f5f54de8c5215fb4f3dcb409.webp'
         },
         rules
       }

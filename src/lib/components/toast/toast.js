@@ -9,6 +9,9 @@ export default {
   },
   render(h) {
     this.options.value = this.toast
+    this.options.elevation = 24
+    this.options.transition = 'scroll-x-reverse-transition'
+    this.options.app = true
 
     const close = h('v-btn', {
       props: {

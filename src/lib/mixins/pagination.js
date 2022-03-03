@@ -84,7 +84,7 @@ export default {
                 this.pagination.page = current_page
                 this.pagination.rowsPerPage = per_page
                 this.pagination.totalItems = total
-                this.$emit('loaded', this.paginator)
+                this.$emit('loaded', paginator)
             }).catch(error => {
                 this.loading = false
                 this.refreshing = false

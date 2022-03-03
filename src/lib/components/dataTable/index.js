@@ -23,6 +23,10 @@ export default {
         actionsAlign: {
             type: String,
             default: () => 'right'
+        },
+        showTools: {
+            type: Boolean,
+            default: () => true
         }
     },
     mixins: [pagination],
@@ -68,6 +72,9 @@ export default {
                                 let icon
                                 if (act.icon) {
                                     icon = h('v-icon', {}, [act.icon])
+                                }
+                                if (action.disabled !== undefined) {
+                                    ps.disabled = useAsFunction(action.disabled)(value)
                                 }
 
                                 return h('v-btn', {
@@ -123,14 +130,16 @@ export default {
                 coms.push(h('v-col', {
                     props: {
                         md: 4,
-                        sm: 12
+                        sm: 12,
+                        dense: true
                     }
                 }, [h('v-text-field', {
                     props: {
                         appendIcon: 'mdi-magnify',
                         label: '搜索',
                         clearable: true,
-                        value: this.keyword
+                        value: this.keyword,
+                        dense: true
                     },
                     on: {
                         'keyup.enter': e => {
@@ -144,6 +153,8 @@ export default {
                     }
                 })]))
             }
+            this.renderTools(coms, h)
+
             if (coms.length > 0) {
                 return h('v-row', {
                     attrs: {
@@ -153,6 +164,20 @@ export default {
             }
 
             return undefined;
+        },
+        renderTools(coms, h) {
+            if (this.$scopedSlots.tools) {
+                let len = coms.length
+
+                coms.push(h('v-col', {
+                    props: {
+                        md: len > 0 ? 8 : 12,
+                        sm: 12
+                    },
+                    class: 'd-flex justify-end'
+                }, [this.$scopedSlots.tools({selected: this.value})]))
+            }
+            return undefined
         },
         renderFilters(h) {
             if (this.$scopedSlots.filters) {

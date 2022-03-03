@@ -213,7 +213,7 @@ export default {
         uploading: false,
         valid: false,
       },
-      imageExts: ['png', 'jpg', 'jpeg', 'gif']
+      imageExts: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'ico']
     };
   },
   mounted() {
