@@ -12,7 +12,7 @@
           <v-text-field v-model="formData.name" label="Name"></v-text-field>
           <date-picker label="DatePicker" v-model="formData.date"></date-picker>
           <time-picker label="TimePicker" v-model="formData.time"/>
-          <file-uploader chunk label="上传文件" v-model="formData.fileurl" />
+          <file-uploader size="10rem" chunk label="上传文件" v-model="formData.fileurl" />
           <data-selector max-length="3" label="Selecter" v-model="formData.tags" url="/lists"/>
           <quill v-model="formData.text"/>
           <a-map @drag="mapDrag"/>

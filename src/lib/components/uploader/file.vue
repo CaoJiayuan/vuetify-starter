@@ -1,22 +1,32 @@
 <template>
   <div class="file-upload-wrapper">
-    <div class="uploader-preview rounded-lg " :style="{width: this.boxSize, height: this.boxSize}">
-      <v-icon class="clickable file-upload-icon" @click="triggerUpload" v-if="!file.uploading">mdi-plus</v-icon>
+    <div
+      class="uploader-preview rounded-lg"
+      :style="{ width: this.boxSize, height: this.boxSize }"
+    >
+      <v-icon
+        class="clickable file-upload-icon"
+        @click="triggerUpload"
+        v-if="!file.uploading"
+        >mdi-plus</v-icon
+      >
       <v-img
-          contain
-          :max-height="boxSize"
-          :max-width="boxSize"
-          v-if="item.preview"
-          :src="item.preview"
+        contain
+        :max-height="boxSize"
+        :max-width="boxSize"
+        v-if="item.preview"
+        :src="item.preview"
       />
       <div @click="removeFile" class="file-upload-delete" v-if="item.preview">
         <v-icon>mdi-delete</v-icon>
       </div>
       <div class="file-upload-progress" v-if="file.uploading">
-        <span>{{item.progress}}%</span>
+        <span>{{ item.progress }}%</span>
       </div>
     </div>
-    <span v-if="label" class="uploader-label">{{ label }}</span>
+    <div :style="{ width: this.boxSize }" class="uploader-label-wrapper">
+      <span v-if="label" class="uploader-label">{{ label }}</span>
+    </div>
   </div>
 </template>
 
@@ -24,52 +34,50 @@
 import uploadable from "../../mixins/uploadable";
 
 const sizes = {
-  xs: '32px',
-  sm: '64px',
-  md: '86px',
-  lg: '168px'
-}
+  xs: "32px",
+  sm: "64px",
+  md: "86px",
+  lg: "168px",
+};
 const MimeTypes = {
-  flv: 'video/x-flv',
-  mp4: 'video/mp4',
-  mov: 'video/quicktime',
-  avi: 'video/x-msvideo',
-  wmv: 'video/x-ms-wmv',
-}
+  flv: "video/x-flv",
+  mp4: "video/mp4",
+  mov: "video/quicktime",
+  avi: "video/x-msvideo",
+  wmv: "video/x-ms-wmv",
+};
 export default {
   name: "file-uploader",
   mixins: [uploadable],
   props: {
     size: {
       type: String,
-      default: 'md'
+      default: "md",
     },
     label: String,
     value: String,
     multifile: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   computed: {
     boxSize() {
-      return sizes[this.size] || '64px'
+      return sizes[this.size] || this.size;
     },
     item() {
       if (this.file.valid && this.value) {
         return this.file;
       }
       return this.parseValue();
-    }
+    },
   },
   methods: {
     onUploaded(file) {
       this.$emit("input", file.url);
       this.$emit("uploaded", file);
     },
-    emitChangeFiles() {
-
-    },
+    emitChangeFiles() {},
     parseValue() {
       if (this.value) {
         let partials = this.value.split(".");
@@ -79,16 +87,16 @@ export default {
           type = "image/" + ext;
         }
 
-        if (['mp4', 'mov', 'flv'].indexOf(ext) >= 0) {
-          type = MimeTypes[ext]
+        if (["mp4", "mov", "flv"].indexOf(ext) >= 0) {
+          type = MimeTypes[ext];
         }
         return (this.file = {
           type: type,
           name: "",
           url: this.value,
           preview: this.isImageFile(this.value)
-              ? this.value
-              : this.getIconByExtention(ext),
+            ? this.value
+            : this.getIconByExtention(ext),
           done: true,
           valid: true,
         });
@@ -112,13 +120,11 @@ export default {
       this.file.error = false;
       this.file.errorMsg = "";
       this.$emit("input", null);
-      this.clearFiles()
-    }
+      this.clearFiles();
+    },
   },
-  mounted() {
-
-  }
-}
+  mounted() {},
+};
 </script>
 
 <style scoped lang="scss">
@@ -146,7 +152,7 @@ export default {
       bottom: 0;
       text-align: center;
       width: 100%;
-      background: rgba(0,0,0, .25);
+      background: rgba(0, 0, 0, 0.25);
       line-height: 20px;
       cursor: pointer;
       display: none;
@@ -167,13 +173,14 @@ export default {
     .v-progress-circular {
     }
   }
-
-  .uploader-label {
-    color: rgba(0, 0, 0, 0.87);
-    margin: 6px 0 0;
-    font-size: 14px;
+  .uploader-label-wrapper {
     text-align: center;
+    padding: 4px 0 0;
+    .uploader-label {
+      color: rgba(0, 0, 0, 0.56);
+      font-size: 14px;
+      text-align: center;
+    }
   }
-
 }
 </style>
