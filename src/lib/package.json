@@ -1,6 +1,6 @@
 {
   "name": "vuetify-starterkit",
-  "version": "0.0.35",
+  "version": "0.0.38",
   "description": "vuetify ui components",
   "main": "index.js",
   "scripts": {
