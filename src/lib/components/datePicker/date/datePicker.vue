@@ -11,58 +11,61 @@
   >
     <template v-slot:activator="{ on }">
       <v-text-field
-          v-on="on"
-          slot="activator"
-          v-model="date"
-          readonly
-          prepend-icon="mdi-calendar"
-          clearable
-          :label="label"
+        v-on="on"
+        slot="activator"
+        v-model="date"
+        readonly
+        prepend-icon="mdi-calendar"
+        clearable
+        :label="label"
       ></v-text-field>
     </template>
 
-    <v-date-picker  v-model="date" locale="zh-cn"></v-date-picker>
+    <v-date-picker v-model="date" locale="zh-cn"></v-date-picker>
   </v-menu>
 </template>
 
 <script>
-  export default {
-    name    : "date-picker",
-    props   : {
-      status: {type: Boolean, default: false},
-      value : {
-        type: [String, Date]
+
+export default {
+  name: "date-picker",
+  props: {
+    status: { type: Boolean, default: false },
+    value: {
+      type: [String, Date, Number],
+    },
+    label: String,
+    fmt: String,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    date: {
+      get() {
+        return this.value;
       },
-      label: String
-    },
-    data() {
-      return {}
-    },
-    computed: {
-      date: {
-        get() {
-          return this.value
-        },
-        set(item) {
-          this.$emit('input', item);
-        }
+      set(item) {
+        this.$emit("input", item);
       },
-      sta: {
-        get() {
-          return this.status
-        },
-        set(item) {
-          this.$emit('change:status', item);
-        }
-      }
     },
-    watch: {
-      date(n) {
-      }
-    }
-  }
+    sta: {
+      get() {
+        return this.status;
+      },
+      set(item) {
+        this.$emit("change:status", item);
+      },
+    },
+    formatter() {
+      return getFormatter(this.fmt);
+    },
+  },
+  watch: {
+    date(n) {},
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

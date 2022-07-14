@@ -9,8 +9,9 @@
         <v-btn @click="$toast('information', 'success', {timeout: 5000})">toast</v-btn>
 
         <data-form @submitted="submitted" v-model="formData" url="users">
+          <pre>{{formData}}</pre>
           <v-text-field v-model="formData.name" label="Name"></v-text-field>
-          <date-picker label="DatePicker" v-model="formData.date"></date-picker>
+          <date-picker fmt="ts" label="DatePicker" v-model="formData.date"></date-picker>
           <time-picker label="TimePicker" v-model="formData.time"/>
           <file-uploader size="10rem" chunk label="上传文件" v-model="formData.fileurl" />
           <data-selector max-length="3" label="Selecter" v-model="formData.tags" url="/lists"/>
@@ -70,7 +71,7 @@ const rules = {
     name: 'Home',
     data() {
       return {
-        date: null,
+        date: 1659024000,
         text: null,
         time: null,
         tableHeaders: [
@@ -131,6 +132,7 @@ const rules = {
         selected: [],
         dialog: false,
         formData: {
+          date: 1659024000,
           tags: [],
           tag: null,
           fileurl: 'https://feast.oss-cn-shenzhen.aliyuncs.com/uploads/2022-02-23/45cfb9a8f5f54de8c5215fb4f3dcb409.webp'

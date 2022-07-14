@@ -1,6 +1,6 @@
 {
   "name": "vuetify-starterkit",
-  "version": "0.0.38",
+  "version": "0.0.39",
   "description": "vuetify ui components",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "dependencies": {
     "nerio-js-utils": "^1.0.11",
     "nerio-uploader": "^1.0.9",
+    "dayjs": "^1.11.3",
     "vuetify": "^2.4.0"
   },
   "author": "",

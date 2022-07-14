@@ -14,6 +14,7 @@ import DialogForm from "./components/form/DialogForm";
 import AMap from "./components/mapDrag/Index";
 import TimePicker from "./components/datePicker/time/timePicker";
 import {renderException} from "./components/exception";
+import { initDefaultFormatter } from './components/datePicker/formatter'
 
 export function setup(vueApp) {
     require('./styles/app.scss')
@@ -21,6 +22,7 @@ export function setup(vueApp) {
     Vue.use(Attachment)
     Vue.use(Confirm)
     Vue.use(Toast)
+    initDefaultFormatter()
 }
 
 export {vuetify, Attachment, Confirm, DataTable,
