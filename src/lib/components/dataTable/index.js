@@ -57,6 +57,7 @@ export default {
                     value: '_actions',
                     text: '操作',
                     align: this.actionsAlign,
+                    sortable: false,
                     render:(h, value) => {
                         let btns = this.actions.map(action => {
                             if (action.granted !== undefined) {
