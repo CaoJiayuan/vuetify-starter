@@ -162,11 +162,11 @@ export default {
     position: absolute;
     top: 10px;
     left: 10px;
-    width: 285px;
+    width: 346px;
     z-index: 1;
 
     input {
-      width: 180px;
+      width: 276px;
       border: 1px solid #ccc;
       line-height: 20px;
       padding: 5px;

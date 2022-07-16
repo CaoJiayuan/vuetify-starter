@@ -40,6 +40,10 @@ export default {
     clearable: {
       type: Boolean,
       default: () => false
+    },
+    resolver: {
+      type: Function,
+      default: data => data
     }
   },
   data() {
@@ -64,7 +68,7 @@ export default {
           axios.request({
             method,
             url,
-            data: this.value
+            data: this.resolver(Object.assign({}, this.value))
           }).then(res => {
             this.posting = false
             if (this.successMessage) {

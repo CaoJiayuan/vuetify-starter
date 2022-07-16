@@ -8,7 +8,7 @@
         <v-btn @click="upload">Upload attachments</v-btn>
         <v-btn @click="$toast('information', 'success', {timeout: 5000})">toast</v-btn>
 
-        <data-form @submitted="submitted" v-model="formData" url="users">
+        <data-form :resolver="dataResolver" @submitted="submitted" v-model="formData" url="users">
           <pre>{{formData}}</pre>
           <v-text-field v-model="formData.name" label="Name"></v-text-field>
           <date-picker fmt="ts" label="DatePicker" v-model="formData.date"></date-picker>
@@ -135,7 +135,8 @@ const rules = {
           date: 1659024000,
           tags: [],
           tag: null,
-          fileurl: 'https://feast.oss-cn-shenzhen.aliyuncs.com/uploads/2022-02-23/45cfb9a8f5f54de8c5215fb4f3dcb409.webp'
+          fileurl: 'https://feast.oss-cn-shenzhen.aliyuncs.com/uploads/2022-02-23/45cfb9a8f5f54de8c5215fb4f3dcb409.webp',
+          poi :{}
         },
         rules
       }
@@ -177,7 +178,13 @@ const rules = {
         console.log(this.formData)
       },
       mapDrag(pos) {
+        this.formData.poi = pos
         console.log(pos)
+      },
+      dataResolver(data) {
+        console.log(data)
+        data.name += "xxxxxxx"
+        return data
       }
     }
   }

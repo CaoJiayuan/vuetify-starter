@@ -13,6 +13,12 @@ Vue.config.productionTip = false
 require('./mock')
 require('./dependencies')
 
+console.log(process.env.VUE_APP_GAODE_MAP_KEY)
+console.log(process.env.VUE_APP_GAODE_MAP_PROXY)
+window._AMapSecurityConfig = {
+    serviceHost:`${process.env.VUE_APP_GAODE_MAP_PROXY}/_AMapService`,
+}
+
 export const VueApp = new Vue({
   router,
   store,

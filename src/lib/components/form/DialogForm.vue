@@ -16,7 +16,7 @@
         </v-btn>
       </v-toolbar>
       <v-card-text>
-        <data-form @posting="postingData" @submitted="submitted" v-model="formData" ref="form" :url="url">
+        <data-form :resolver="resolver" @posting="postingData" @submitted="submitted" v-model="formData" ref="form" :url="url">
           <v-container>
             <slot></slot>
           </v-container>
@@ -54,6 +54,10 @@ export default {
     successMessage: {
       type: String,
       default: () => '保存成功'
+    },
+    resolver: {
+      type: Function,
+      default: data => data
     }
   },
   data() {
