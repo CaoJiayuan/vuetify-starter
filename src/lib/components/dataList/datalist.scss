@@ -1,0 +1,22 @@
+
+.app-data-list {
+  position: relative;
+  .app-data-table-title {
+    font-size: 20px;
+    line-height: 80px;
+  }
+  .app-data-table-filters {
+    button+button {
+      margin-left: 6px;
+    }
+  }
+  .app-data-table-actions {
+    button+button {
+      margin-left: 4px;
+    }
+  }
+  .app-data-table-refresh {
+    position: absolute;
+    bottom: 15px;
+  }
+}
