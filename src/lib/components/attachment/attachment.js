@@ -281,7 +281,6 @@ export default {
         width: 768,
         transition: 'slide-y-reverse-transition',
         persistent: true,
-
       }
     }, [card])
   }

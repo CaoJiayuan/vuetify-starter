@@ -1,6 +1,7 @@
 let vuetify
 import Vue from 'vue'
 import Attachment from "./components/attachment"
+import Preview from "./components/preview"
 import Confirm from "./components/confirm"
 import Toast from "./components/toast"
 import {toast} from "./components/toast"
@@ -23,6 +24,7 @@ export function setup(vueApp) {
     Vue.use(Attachment)
     Vue.use(Confirm)
     Vue.use(Toast)
+    Vue.use(Preview)
     initDefaultFormatter()
 }
 

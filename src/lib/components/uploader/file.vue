@@ -16,6 +16,7 @@
         :max-width="boxSize"
         v-if="item.preview"
         :src="item.preview"
+        @click="previewItem(item)"
       />
       <div @click="removeFile" class="file-upload-delete" v-if="item.preview">
         <v-icon>mdi-delete</v-icon>
@@ -122,6 +123,11 @@ export default {
       this.$emit("input", null);
       this.clearFiles();
     },
+    previewItem(item ) {
+      if (item.preview) {
+        this.$preview(item.preview);
+      }
+    }
   },
   mounted() {},
 };

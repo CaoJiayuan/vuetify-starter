@@ -107,6 +107,7 @@
       max-width="800px"
       :dialog.sync="dialog"
       url="users"
+      :resolver="dataResolver"
     >
       <v-text-field
         :rules="rules.name"
@@ -305,6 +306,9 @@ export default {
     delList(data) {
       alert(JSON.stringify(data))
     }
+  },
+  mounted() {
+    this.$preview('https://feast.oss-cn-shenzhen.aliyuncs.com/uploads/2022-02-23/45cfb9a8f5f54de8c5215fb4f3dcb409.webp')
   },
 };
 </script>
