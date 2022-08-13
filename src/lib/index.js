@@ -17,6 +17,8 @@ import AMap from "./components/mapDrag/Index";
 import TimePicker from "./components/datePicker/time/timePicker";
 import {renderException} from "./components/exception";
 import { initDefaultFormatter } from './components/datePicker/formatter'
+import DatetimePicker from "./components/datetimePicker/Index.vue";
+import { initDefaultDtFormatter } from './components/datetimePicker/formatter'
 
 export function setup(vueApp) {
     require('./styles/app.scss')
@@ -26,8 +28,9 @@ export function setup(vueApp) {
     Vue.use(Toast)
     Vue.use(Preview)
     initDefaultFormatter()
+    initDefaultDtFormatter()
 }
 
 export {vuetify, Attachment, Confirm, DataTable, DataList,
     Quill, TimePicker, DatePicker, renderException, toast,
-    DataForm, DialogForm, FileUploader, DataSelector, AMap}
+    DataForm, DialogForm, FileUploader, DataSelector, AMap, DatetimePicker}

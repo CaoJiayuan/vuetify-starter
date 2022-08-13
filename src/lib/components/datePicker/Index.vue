@@ -5,6 +5,7 @@
     :nudge-right="40"
     transition="scale-transition"
     offset-y
+
     min-width="290px"
   >
     <template v-slot:activator="{ on }">
@@ -19,8 +20,10 @@
         :rules="rules"
       ></v-text-field>
     </template>
-
-    <v-date-picker v-model="date" locale="zh-cn"></v-date-picker>
+    <div class="date-picker-wrapper">
+      <v-date-picker v-model="date" locale="zh-cn"></v-date-picker>
+      <p>{{ date }}</p>
+    </div>
   </v-menu>
 </template>
 
@@ -68,5 +71,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.date-picker-wrapper {
+  background: white;
+}
 </style>

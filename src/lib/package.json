@@ -1,6 +1,6 @@
 {
   "name": "vuetify-starterkit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "vuetify ui components",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,10 @@
     "nerio-js-utils": "^1.0.11",
     "nerio-uploader": "^1.0.9",
     "dayjs": "^1.11.3",
-    "vuetify": "^2.4.0"
+    "luxon": "^1.28.0",
+    "vue-datetime": "^1.0.0-beta.14",
+    "vuetify": "^2.4.0",
+    "weekstart": "^1.1.0"
   },
   "author": "",
   "license": "MIT"

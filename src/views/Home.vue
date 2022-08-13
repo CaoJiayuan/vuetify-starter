@@ -38,6 +38,7 @@
           />
           <quill v-model="formData.text" />
           <a-map @drag="mapDrag" />
+          <datetime-picker lebel="开始时间" fmt="ts" v-model="formData.datetime"></datetime-picker>
         </data-form>
       </v-container>
     </v-card>
@@ -128,6 +129,7 @@ import {
   Quill,
   renderException,
   TimePicker,
+  DatetimePicker,
   DataList,
 } from "@/lib";
 import DialogForm from "@/lib/components/form/DialogForm";
@@ -264,6 +266,7 @@ export default {
     DatePicker,
     AMap,
     DataList,
+    DatetimePicker
   },
   methods: {
     exc() {
@@ -308,7 +311,6 @@ export default {
     }
   },
   mounted() {
-    this.$preview('https://feast.oss-cn-shenzhen.aliyuncs.com/uploads/2022-02-23/45cfb9a8f5f54de8c5215fb4f3dcb409.webp')
   },
 };
 </script>
