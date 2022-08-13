@@ -5,7 +5,6 @@
     :nudge-right="40"
     transition="scale-transition"
     offset-y
-
     min-width="290px"
   >
     <template v-slot:activator="{ on }">
@@ -20,10 +19,7 @@
         :rules="rules"
       ></v-text-field>
     </template>
-    <div class="date-picker-wrapper">
-      <v-date-picker v-model="date" locale="zh-cn"></v-date-picker>
-      <p>{{ date }}</p>
-    </div>
+    <v-date-picker v-model="date" locale="zh-cn"></v-date-picker>
   </v-menu>
 </template>
 

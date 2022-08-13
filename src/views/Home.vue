@@ -19,7 +19,6 @@
           <pre>{{ formData }}</pre>
           <v-text-field v-model="formData.name" label="Name"></v-text-field>
           <date-picker
-            fmt="ts"
             label="DatePicker"
             v-model="formData.date"
           ></date-picker>
@@ -209,7 +208,6 @@ export default {
       selected: [],
       dialog: false,
       formData: {
-        date: 1659024000,
         tags: [],
         tag: null,
         fileurl:
