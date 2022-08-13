@@ -11,6 +11,7 @@
         v-model="dt"
         format="yyyy-MM-dd HH:mm:ss"
       ></datetime>
+      <v-icon title="清除" v-if="dt" @click="clear">mdi-close</v-icon>
     </div>
   </div>
 </template>
@@ -46,6 +47,11 @@ export default {
       return getFormatter(this.fmt);
     },
   },
+  methods: {
+    clear(){
+      this.dt=null;
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
