@@ -84,7 +84,11 @@
         default : () => []
       },
       maxLength: [Number, String],
-      prependIcon: String
+      prependIcon: String,
+      respResolver: {
+        type: Function,
+        default: data => data
+      }
     },
     model     : {
       prop : 'value'
@@ -124,7 +128,7 @@
           return Promise.resolve(this.items)
         }
         return axios.get(this.url).then(response => {
-          this.items = response.data;
+          this.items = this.respResolver(response.data);
           return this.items;
         });
       },
