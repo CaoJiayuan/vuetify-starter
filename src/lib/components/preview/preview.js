@@ -17,13 +17,13 @@ export default {
         small: true,
         fab: true
       },
-      on:{
+      on: {
         click: this.dismiss
       }
     }, [h('v-icon', {}, 'mdi-close')])
 
     const title = h('v-toolbar', {
-      props:{
+      props: {
         color: this.$theme.color,
         dense: true,
         flat: true,
@@ -32,43 +32,49 @@ export default {
       }
     }, [h('h3', {}, '预览'), h('v-spacer'), close])
 
-    const img = h('v-img', {
-      props: {
+    const img = h('img', {
+      attrs: {
         src: this.url,
-        maxWith: '100%',
-        contain: true
+      },
+      style: {
+        maxWidth: '80vw',
+        maxHeight: '85vh'
       }
     })
 
-    const card = h('v-card' , {
+    const card = h('v-layout', {
       props: {
-
+        alignCenter: true,
+        justifyCenter: true,
+        row: true,
+        fillHeight: true
       }
     }, [
-      title,
       img
     ]);
 
     return h('v-dialog', {
       props: {
         value: this.dialog,
-        width: 768,
+        maxWidth: 'fit-content',
         transition: 'slide-y-reverse-transition',
-        persistent: true,
+      },
+      on: {
+        input: val => this.dialog = val
       }
     }, [card])
   },
   methods: {
-    show(){
+    show() {
       this.dialog = true
     },
-    close(){
+    close() {
       this.dialog = false
       if (typeof this.destroy === 'function') {
         this.destroy();
       }
     },
-    dismiss(){
+    dismiss() {
       this.close()
     },
   }
