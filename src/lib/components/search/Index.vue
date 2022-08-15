@@ -26,13 +26,14 @@
       </div>
       <div v-if="items.length > 0">
         <v-divider></v-divider>
-        <v-list dense two-line>
+        <v-list dense two-line class="as-list">
           <template v-for="(item, idx) in items">
             <div
               class="as-item"
               @click="clickItem(item)"
               :class="{ 'as-focus': idx == focus }"
-              :key="item.key"
+              :key="item.key + idx"
+              ref="items"
             >
               <v-list-item dense>
                 <v-list-item-avatar>
@@ -58,7 +59,7 @@
 <script>
 import { functions } from "nerio-js-utils";
 const { standby } = functions;
-import {waitingFor} from '../../utils/utils'
+import { waitingFor } from "../../utils/utils";
 export default {
   props: {
     label: {
@@ -78,7 +79,7 @@ export default {
     hotLimit: {
       type: Number,
       default: () => 10,
-    }
+    },
   },
   data() {
     return {
@@ -140,6 +141,10 @@ export default {
         } else {
           this.focus += diff;
         }
+        let ref = this.$refs.items[this.focus]
+        if (ref) {
+          ref.scrollIntoView({ behavior: "smooth" })
+        }
       }
     },
     clickItem(item) {
@@ -168,13 +173,13 @@ export default {
     dismiss() {
       this.dialog = false;
     },
-    getHotData(data){
-      this.items = data.slice(0, this.hotLimit)
-    }
+    getHotData(data) {
+      this.items = data.slice(0, this.hotLimit);
+    },
   },
   mounted() {
     document.addEventListener("keyup", this.onSearchKey);
-    waitingFor(() => this.data).then(this.getHotData)
+    waitingFor(() => this.data).then(this.getHotData);
   },
   destroyed() {
     document.removeEventListener("keyup", this.onSearchKey);
@@ -182,10 +187,10 @@ export default {
   watch: {
     data(now) {
       if (now.length > 0) {
-        this.getHotData(now)
+        this.getHotData(now);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -219,6 +224,10 @@ export default {
     &.as-focus .as-hint {
       display: block;
     }
+  }
+  .as-list {
+    max-height: 75vh;
+    overflow-y: scroll;
   }
 }
 .v-dialog__content {
