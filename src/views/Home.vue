@@ -18,10 +18,7 @@
         >
           <pre>{{ formData }}</pre>
           <v-text-field v-model="formData.name" label="Name"></v-text-field>
-          <date-picker
-            label="DatePicker"
-            v-model="formData.date"
-          ></date-picker>
+          <date-picker label="DatePicker" v-model="formData.date"></date-picker>
           <time-picker label="TimePicker" v-model="formData.time" />
           <file-uploader
             size="10rem"
@@ -37,7 +34,11 @@
           />
           <quill v-model="formData.text" />
           <!-- <a-map @drag="mapDrag" /> -->
-          <datetime-picker lebel="开始时间" fmt="ts" v-model="formData.datetime"></datetime-picker>
+          <datetime-picker
+            lebel="开始时间"
+            fmt="ts"
+            v-model="formData.datetime"
+          ></datetime-picker>
         </data-form>
       </v-container>
     </v-card>
@@ -48,7 +49,12 @@
       </v-toolbar>
       <v-divider></v-divider>
       <v-container>
-        <data-list @delete="delList" :actions="listActions" :headers="listHeaders" api-url="/lists" />
+        <data-list
+          @delete="delList"
+          :actions="listActions"
+          :headers="listHeaders"
+          api-url="/lists"
+        />
       </v-container>
     </v-card>
     <v-card>
@@ -216,7 +222,7 @@ export default {
       },
       rules,
       listHeaders: [
-         {
+        {
           text: "index",
           value: "$index",
           render: (h, item) => {
@@ -249,8 +255,8 @@ export default {
             color: "red",
             dark: true,
           },
-        }
-      ],
+        },
+      ]
     };
   },
   components: {
@@ -264,7 +270,7 @@ export default {
     DatePicker,
     AMap,
     DataList,
-    DatetimePicker
+    DatetimePicker,
   },
   methods: {
     exc() {
@@ -305,10 +311,9 @@ export default {
       return data;
     },
     delList(data) {
-      alert(JSON.stringify(data))
-    }
+      alert(JSON.stringify(data));
+    },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
