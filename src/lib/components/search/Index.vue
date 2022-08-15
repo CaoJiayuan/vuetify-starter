@@ -32,7 +32,7 @@
               class="as-item"
               @click="clickItem(item)"
               :class="{ 'as-focus': idx == focus }"
-              :key="item.key + idx"
+              :key="`${item.key}-${idx}`"
               ref="items"
             >
               <v-list-item dense>
