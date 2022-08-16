@@ -92,14 +92,17 @@ export default {
   methods: {
     onSearchKey(e) {
       if (this.trigger(e)) {
-        this.dialog = !this.dialog;
-        if (this.dialog) {
-          setTimeout(() => {
-            this.$nextTick(() => {
-              this.$refs.input.focus();
-            });
-          }, 100);
-        }
+        this.toggle()
+      }
+    },
+    toggle() {
+      this.dialog = !this.dialog;
+      if (this.dialog) {
+        setTimeout(() => {
+          this.$nextTick(() => {
+            this.$refs.input.focus();
+          });
+        }, 100);
       }
     },
     search() {
@@ -141,9 +144,9 @@ export default {
         } else {
           this.focus += diff;
         }
-        let ref = this.$refs.items[this.focus]
+        let ref = this.$refs.items[this.focus];
         if (ref) {
-          ref.scrollIntoView({ behavior: "smooth" })
+          ref.scrollIntoView({ behavior: "smooth" });
         }
       }
     },
