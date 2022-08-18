@@ -211,7 +211,7 @@ export default {
           },
         },
       ],
-      selected: [],
+      selected: {},
       dialog: false,
       formData: {
         tags: [],
