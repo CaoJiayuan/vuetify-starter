@@ -7,7 +7,7 @@ const xhr = createNativeXMLHttpRequest()
 
 Mock.XHR.prototype.upload = xhr.upload
 Mock.setup({
-  timeout: '200-600'
+  timeout: '100-200'
 })
 
 function proxy(options, fn) {

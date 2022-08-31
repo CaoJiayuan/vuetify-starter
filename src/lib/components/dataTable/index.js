@@ -27,6 +27,10 @@ export default {
     showTools: {
       type: Boolean,
       default: () => true
+    },
+    initFilters :{
+      type: Object,
+      default: () => ({})
     }
   },
   mixins: [pagination],
@@ -197,7 +201,7 @@ export default {
         let clear = h('v-btn', {
           on: {
             click: () => {
-              this.tableFilters = {}
+              this.resetFilters()
               this.filter(this.tableFilters)
             }
           },
@@ -221,6 +225,9 @@ export default {
         }, [this.$scopedSlots.filters(this.tableFilters), actions])
       }
       return undefined
+    },
+    resetFilters() {
+      this.tableFilters = Object.assign({}, this.initFilters)
     }
   },
   render(h) {
@@ -334,7 +341,8 @@ export default {
     }, [this.renderFilters(h), this.renderHead(h), table, refresh])
   },
   mounted() {
-    this.autoload && this.load({})
+    this.resetFilters()
+    this.autoload && this.filter(this.tableFilters)
     this.originValue = this.value
   },
   watch: {

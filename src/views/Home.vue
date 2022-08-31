@@ -80,6 +80,7 @@
           api-url="/users"
           selectable
           v-model="selected"
+          :initFilters="initFilters"
         >
           <template #expanded="{ item }">
             <div>{{ item.name }}</div>
@@ -211,7 +212,7 @@ export default {
           },
         },
       ],
-      selected: {},
+      selected: [],
       dialog: false,
       formData: {
         tags: [],
@@ -256,7 +257,10 @@ export default {
             dark: true,
           },
         },
-      ]
+      ],
+      initFilters : {
+        test : 1
+      }
     };
   },
   components: {
