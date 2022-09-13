@@ -348,6 +348,10 @@ export default {
   watch: {
     apiUrl(now) {
       now && this.refresh()
+    },
+    initFilters(filters) {
+      this.resetFilters()
+      this.filter(this.tableFilters)
     }
   }
 }
