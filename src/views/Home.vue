@@ -25,6 +25,7 @@
             chunk
             label="上传文件"
             v-model="formData.fileurl"
+            hint="上传大小不能超过2MB"
           />
           <data-selector
             max-length="3"

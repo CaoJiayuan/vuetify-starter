@@ -21,6 +21,9 @@
     <div :style="{ width: this.boxSize }" class="uploader-label-wrapper">
       <span v-if="label" class="uploader-label">{{ label }}</span>
     </div>
+    <div :style="{ width: this.boxSize }" class="uploader-hint-wrapper">
+      <span v-if="hint" class="uploader-hint">{{ hint }}</span>
+    </div>
   </div>
 </template>
 
@@ -54,6 +57,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    hint: String
   },
   computed: {
     boxSize() {
@@ -188,6 +192,15 @@ export default {
     .uploader-label {
       color: rgba(0, 0, 0, 0.56);
       font-size: 14px;
+      text-align: center;
+    }
+  }
+
+  .uploader-hint-wrapper {
+    text-align: center;
+    .uploader-hint {
+      color: rgba(0, 0, 0, 0.56);
+      font-size: 12px;
       text-align: center;
     }
   }
