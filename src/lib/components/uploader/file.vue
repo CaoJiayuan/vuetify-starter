@@ -10,14 +10,7 @@
         v-if="!file.uploading"
         >mdi-plus</v-icon
       >
-      <v-img
-        contain
-        :max-height="boxSize"
-        :max-width="boxSize"
-        v-if="item.preview"
-        :src="item.preview"
-        @click="previewItem(item)"
-      />
+      <img @click="previewItem(item)" v-if="item.preview" :src="item.preview" alt="" class="upload-preview-img">
       <div @click="removeFile" class="file-upload-delete" v-if="item.preview">
         <v-icon>mdi-delete</v-icon>
       </div>
@@ -77,6 +70,7 @@ export default {
     onUploaded(file) {
       this.$emit("input", file.url);
       this.$emit("uploaded", file);
+      this.$forceUpdate()
     },
     emitChangeFiles() {},
     parseValue() {
@@ -141,6 +135,15 @@ export default {
     border: 1px dashed #d9d9d9;
     position: relative;
     overflow: hidden;
+    .upload-preview-img {
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
     &:hover .file-upload-delete {
       display: block;
     }
