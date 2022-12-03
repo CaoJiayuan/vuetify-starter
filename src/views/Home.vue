@@ -34,7 +34,7 @@
             url="/lists"
           />
           <quill v-model="formData.text" />
-          <a-map @drag="mapDrag" disabled/>
+          <a-map @drag="mapDrag" editable/>
           <datetime-picker
             lebel="开始时间"
             fmt="ts"

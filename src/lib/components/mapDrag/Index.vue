@@ -6,7 +6,9 @@
       <div id="js-result" v-show="searchKey" class="result"></div>
     </div>
     <div id="js-container" class="map">正在加载数据 ...</div>
-    <div class="map-cover" v-if="disabled"></div>
+    <div class="map-cover" v-if="(disabled || editValue)">
+      <v-btn v-if="editValue" @click="(editValue = false)">重新选择位置</v-btn>
+    </div>
   </div>
 </template>
 
@@ -22,6 +24,7 @@ export default {
       type: [Number, String],
     },
     disabled: Boolean,
+    editable: Boolean
   },
   data() {
     return {
@@ -31,6 +34,7 @@ export default {
       AMapUI: null,
       AMap: null,
       mapObject: null,
+      editValue: false
     };
   },
   watch: {
@@ -39,6 +43,9 @@ export default {
         this.placeSearch.clear();
       }
     },
+    editable(v) {
+      this.editValue = v
+    }
   },
   methods: {
     // 搜索
@@ -143,6 +150,9 @@ export default {
       this.mapObject && this.mapObject.panTo([lng, lat]);
     },
   },
+  mounted() {
+    this.editValue = this.editable
+  },
   async created() {
     // 已载入高德地图API，则直接初始化地图
     if (window.AMap && window.AMapUI) {
@@ -171,6 +181,12 @@ export default {
     top: 0;
     background-color: rgba($color: #000000, $alpha: 0.1);
     z-index: 2;
+    backdrop-filter: blur(.5px);
+    button {
+      top: 25%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 
   .map {
