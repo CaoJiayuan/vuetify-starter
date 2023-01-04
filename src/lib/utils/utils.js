@@ -17,6 +17,12 @@ export function rememberCom(id, comFn) {
   return saveComps[id]
 }
 
+export function forgetCom(id) {
+  if (Object.prototype.hasOwnProperty.call(saveComps, id)) {
+     delete saveComps[id]
+  }
+}
+
 
 export function waitingFor(fn, timeout = 5) {
   fn = useAsFunction(fn)

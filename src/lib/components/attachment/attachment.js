@@ -235,8 +235,6 @@ export default {
         },
         nativeOn: {
           click: () => {
-            this.$emit('dismiss', self.selected);
-            self.dismiss()
             if(self.tabIndex === 0) {
               self.selected.length > 0 && axios.post('/attachments/batch', {
                 data: self.selected.map(file => {
@@ -259,6 +257,8 @@ export default {
               self.$emit('submit', files)
               self.onSubmit(files)
             }
+            this.$emit('dismiss', self.selected);
+            self.dismiss()
           }
         }
       }, '确定'),
@@ -281,6 +281,10 @@ export default {
         width: 768,
         transition: 'slide-y-reverse-transition',
         persistent: true,
+        attach: true
+      },
+      attrs: {
+        id: `${this.$attrs.id}-dialog`
       }
     }, [card])
   }

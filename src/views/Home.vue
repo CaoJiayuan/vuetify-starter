@@ -221,6 +221,7 @@ export default {
         fileurl:
           "https://feast.oss-cn-shenzhen.aliyuncs.com/uploads/2022-02-23/45cfb9a8f5f54de8c5215fb4f3dcb409.webp",
         poi: {},
+        attach: {}
       },
       rules,
       listHeaders: [
@@ -290,8 +291,11 @@ export default {
       this.$attachment(
         (f) => {
           console.log("attachment", f);
+          this.formData.attach = f
+          this.$forceUpdate()
         },
         {
+
           single: true,
         }
       );
